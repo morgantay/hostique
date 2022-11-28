@@ -10,16 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_28_194505) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_28_201530) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "amenities", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "amenity_tags", force: :cascade do |t|
+    t.bigint "hostel_id", null: false
+    t.bigint "amenity_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["amenity_id"], name: "index_amenity_tags_on_amenity_id"
+    t.index ["hostel_id"], name: "index_amenity_tags_on_hostel_id"
+  end
 
   create_table "hostels", force: :cascade do |t|
     t.string "name"
     t.string "city"
     t.string "address"
     t.string "description"
-    t.string "facilities"
     t.float "rating"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
@@ -58,6 +72,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_28_194505) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "amenity_tags", "amenities"
+  add_foreign_key "amenity_tags", "hostels"
   add_foreign_key "hostels", "users"
   add_foreign_key "reservations", "rooms"
   add_foreign_key "reservations", "users"
