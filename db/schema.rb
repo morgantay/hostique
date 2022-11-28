@@ -10,8 +10,59 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 0) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_28_191544) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "hostels", force: :cascade do |t|
+    t.string "name"
+    t.string "city"
+    t.string "address"
+    t.string "description"
+    t.string "image_urls"
+    t.string "facilities"
+    t.float "rating"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_hostels_on_user_id"
+  end
+
+  create_table "reservations", force: :cascade do |t|
+    t.date "start_date"
+    t.date "end_date"
+    t.bigint "user_id", null: false
+    t.bigint "room_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["room_id"], name: "index_reservations_on_room_id"
+    t.index ["user_id"], name: "index_reservations_on_user_id"
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.integer "number_of_beds"
+    t.integer "price_per_night"
+    t.string "name"
+    t.string "description"
+    t.string "image_url"
+    t.bigint "hostel_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["hostel_id"], name: "index_rooms_on_hostel_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "email"
+    t.string "password"
+    t.string "image_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "hostels", "users"
+  add_foreign_key "reservations", "rooms"
+  add_foreign_key "reservations", "users"
+  add_foreign_key "rooms", "hostels"
 end
