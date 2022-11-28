@@ -1,0 +1,5 @@
+<% if @hostel.user == current_user %>
+  <%= link_to "add room", new_hostel_room_path(@hostel) %>
+  
+
+<% end %>
