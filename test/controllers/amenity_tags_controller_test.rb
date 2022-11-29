@@ -1,6 +1,6 @@
 require "test_helper"
 
-class AmenitytagsControllerTest < ActionDispatch::IntegrationTest
+class AmenityTagsControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end
