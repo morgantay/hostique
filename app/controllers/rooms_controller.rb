@@ -24,7 +24,7 @@ class RoomsController < ApplicationController
 
   def destroy
     @room.destroy
-    redirect_to hostel_path(@hostel)
+    redirect_to @hostel, status: :see_other
   end
 
   private

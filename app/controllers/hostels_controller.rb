@@ -6,11 +6,8 @@ class HostelsController < ApplicationController
   end
 
   def show
-    # show
-  end
-
-  def new
-    @hostel = Hostel.new
+    @room = Room.new
+    @review = Review.new
   end
 
   def create
