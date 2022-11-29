@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   root to: "pages#home"
 
   resources :hostels, except: %i[new edit] do
@@ -19,6 +20,4 @@ Rails.application.routes.draw do
   resources :reservations, only: %i[update destroy]
 
   resources :wishlist_tags, only: %i[destroy]
-
-  get '/profile', to: 'users#profile', as: "profile"
 end
