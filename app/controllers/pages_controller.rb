@@ -3,7 +3,6 @@ class PagesController < ApplicationController
 
   def home
     @hostels = Hostel.all
-    @hostel = Hostel.new
   end
 
   def profile

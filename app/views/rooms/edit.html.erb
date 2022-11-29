@@ -1,0 +1,7 @@
+  <%= simple_form_for([@hostel, @room]) do |f| %>
+    <%= f.input :number_of_beds, as: :integer %>
+    <%= f.input :price_per_night, as: :integer %>
+    <%= f.input :name %>
+    <%= f.input :description, as: :text %>
+    <%= f.submit %>
+  <% end %>

@@ -1,0 +1,9 @@
+<div class='form'>
+  <%= simple_form_for(@hostel) do |f| %>
+    <%= f.input :name %>
+    <%= f.input :city %>
+    <%= f.input :address %>
+    <%= f.input :description, as: :text %>
+    <%= f.submit %>
+  <% end %>
+</div>
