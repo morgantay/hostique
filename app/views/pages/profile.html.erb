@@ -39,8 +39,45 @@
           <%= reservation.room.hostel.name %>
           <%= reservation.room.hostel.city %>
           <%= link_to 'cancel booking', reservation_path(reservation), data: {turbo_method: :delete}   %>
+
+          <div class="edit-res-container">
+            edit
+            <div class="edit-res-form">
+            <%= simple_form_for(reservation) do |f| %>
+                <%= f.input :start_date, as: :date %>
+                <%= f.input :end_date, as: :date %>
+                 <%= f.submit "Edit Reservation" %>
+            <% end %>
+            </div>
+          </div>
+
         </li>
       <% end %>
     </ul>
   </div>
 </div>
+
+
+<style>
+.edit-res-container{
+  background:red;
+}
+
+.edit-res-form{
+   overflow: hidden;
+    height: 0;
+    background: white;
+    -webkit-transition: all .8s ease;
+    -moz-transition: all .8s ease;
+    -ms-transition: all .8s ease;
+    -o-transition: all .8s ease;
+    transition: all .8s ease;
+}
+
+.edit-res-container:hover .edit-res-form{
+  height: 300px;
+  overflow-y:auto;
+  display: block;
+}
+
+</style>

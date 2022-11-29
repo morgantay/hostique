@@ -3,6 +3,7 @@
 
   <ul>
     <% @hostel.rooms.each do |room| %>
+      <h1>Room</h1>
       <li>
         <% @reservation = Reservation.new %>
         <%= room.number_of_beds %>
@@ -10,6 +11,20 @@
         <%= room.name %>
         <%= room.description %>
         <%= link_to 'remove', room_path(room), data: {turbo_method: :delete} %>
+
+       <div class="edit-container">
+          edit
+          <div class="edit-form">
+            <%= simple_form_for(room) do |f| %>
+               <%= f.input :number_of_beds, as: :integer %>
+              <%= f.input :price_per_night, as: :integer %>
+              <%= f.input :name %>
+              <%= f.input :description, as: :text %>
+              <%= f.submit "Update" %>
+            <% end %>
+          </div>
+       </div>
+
         <%= simple_form_for([room, @reservation]) do |f| %>
           <%= f.input :start_date, as: :date %>
           <%= f.input :end_date, as: :date %>
@@ -46,7 +61,7 @@
     <% @hostel.amenities.each do |amenity| %>
       <li>
         <%= amenity.name %>
-        <%= link_to 'remove', amenity_tag_path(amenity), data: {turbo_method: :delete} %>
+        <%= link_to 'remove', amenity_tag_path(amenity.amenity_tag), data: {turbo_method: :delete} %>
       </li>
     <% end %>
   </ul>
@@ -56,3 +71,33 @@
     <%= f.submit %>
   <% end %>
 </div>
+
+
+
+<style>
+
+.edit-container{
+  background:red;
+}
+
+.edit-form{
+   overflow: hidden;
+    height: 0;
+    background: white;
+    -webkit-transition: all .8s ease;
+    -moz-transition: all .8s ease;
+    -ms-transition: all .8s ease;
+    -o-transition: all .8s ease;
+    transition: all .8s ease;
+}
+
+.edit-container:hover .edit-form{
+  height: 300px;
+  overflow-y:auto;
+  display: block;
+}
+
+
+
+
+</style>

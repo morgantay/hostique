@@ -31,6 +31,7 @@ class HostelsController < ApplicationController
   end
 
   def destroy
+    raise
     @hostel.destroy
     redirect_to profile_path
   end

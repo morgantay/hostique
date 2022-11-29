@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     resources :reservations, only: :create
   end
 
-  resources :hostels, only: :destroy
+  # resources :hostels, only: :destroy
 
   resources :amenity_tags, only: :destroy
 
