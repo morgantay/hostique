@@ -1,44 +1,54 @@
 <div class='main'>
   <div class='user-info'>
-    <h1><%= current_user %></h1>
+    <h1><%= current_user.first_name %></h1>
   </div>
 
   <div class='add-listing-form'>
     <div class='form'>
       <%= simple_form_for(@hostel) do |f| %>
-        <%= f.input :name %>
-        <%= f.input :city %>
-        <%= f.input :address %>
-        <%= f.input :description, as: :text %>
-        <%= f.submit %>
+        <%= f.input :name, class: 'input' %>
+        <%= f.input :city, class: 'input' %>
+        <%= f.input :address, class: 'input' %>
+        <%= f.input :description, as: :text, class: 'input' %>
+        <%= f.submit 'add listing', class: 'submit-btn' %>
       <% end %>
     </div>
   </div>
 
   <div class='user-listings'>
+    <h3>my listings</h3>
     <ul>
       <% @hostels.each do |hostel| %>
         <li>
-          <%= link_to "#{hostel.name}", hostel_path(hostel) %>
-          <%= hostel.city %>
-          <%= hostel.address %>
-          <%= hostel.description %>
-          <%= link_to 'update listing', edit_hostel_path(hostel.id) %>
-          <%= link_to 'remove listing', hostel_path(hostel), data: {turbo_method: :delete} %>
+          <div class='listed-hostels-info'>
+            <%= link_to "#{hostel.name}", hostel_path(hostel), class: 'hostel-name' %>
+            <p><%= hostel.city %></p>
+          </div>
+          <div class='buttons'>
+            <%= link_to 'update', edit_hostel_path(hostel.id), class: 'button' %>
+            <%= link_to 'remove', hostel_path(hostel), data: {turbo_method: :delete}, class: 'button' %>
+          </div>
         </li>
       <% end %>
     </ul>
   </div>
 
   <div class='reservations'>
+    <h3>my future bookings</h3>
     <ul>
       <% current_user.reservations.each do |reservation| %>
+        <% @hostel = reservation.room.hostel %>
         <li>
-          <%= reservation.start_date %>
-          <%= reservation.end_date %>
-          <%= reservation.room.hostel.name %>
-          <%= reservation.room.hostel.city %>
-          <%= link_to 'cancel booking', reservation_path(reservation), data: {turbo_method: :delete}   %>
+          <div class='booking-info'>
+            <%= link_to "#{@hostel.name}", hostel_path(@hostel), class: 'hostel-name' %>
+            <%= @hostel.city %>
+            <%= reservation.start_date %>
+            <%= reservation.end_date %>
+          </div>
+          <div class='buttons'>
+            <%= link_to 'update', '#', class: 'button' %>
+            <%= link_to 'cancel', reservation_path(reservation), data: {turbo_method: :delete}, class: 'button' %>
+          </div>
         </li>
       <% end %>
     </ul>
