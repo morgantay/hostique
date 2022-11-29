@@ -1,5 +1,4 @@
 class HostelsController < ApplicationController
-  before_action :authorize, only: %i[edit update destroy]
   before_action :set_hostel, only: %i[show edit update destroy]
 
   def index
@@ -11,7 +10,6 @@ class HostelsController < ApplicationController
     @review = Review.new
     @amenity_tag = AmenityTag.new
     @reservation = Reservation.new
-    authorize @hostel
   end
 
   def create
@@ -39,10 +37,6 @@ class HostelsController < ApplicationController
   end
 
   private
-
-  def authorize
-    authorize @hostel
-  end
 
   def hostel_params
     params.require(:hostel).permit(:name, :city, :address, :description)
