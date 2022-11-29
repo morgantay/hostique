@@ -1,7 +1,6 @@
 class RoomsController < ApplicationController
   before_action :set_hostel
-  before_action :set_room, only: %i[update destroy]
-
+  before_action :set_room, only: %i[new update destroy]
 
   def create
     @room = Room.new(room_params)
@@ -13,12 +12,16 @@ class RoomsController < ApplicationController
     end
   end
 
+  def new
+    # new
+  end
+
   def update
     @room.update(room_params)
     if @room.save
       redirect_to hostel_path(@hostel)
     else
-      render "hostels/show", status: :unprocessable_entity
+      redirect_to hostel_path(@hostel), status: :unprocessable_entity
     end
   end
 
