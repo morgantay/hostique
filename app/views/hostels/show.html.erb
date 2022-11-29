@@ -4,11 +4,17 @@
   <ul>
     <% @hostel.rooms.each do |room| %>
       <li>
+        <% @reservation = Reservation.new %>
         <%= room.number_of_beds %>
         <%= room.price_per_night %>
         <%= room.name %>
         <%= room.description %>
         <%= link_to 'remove', room_path(room), data: {turbo_method: :delete} %>
+        <%= simple_form_for([room, @reservation]) do |f| %>
+          <%= f.input :start_date, as: :date %>
+          <%= f.input :end_date, as: :date %>
+          <%= f.submit %>
+        <% end %>
       </li>
     <% end %>
   </ul>

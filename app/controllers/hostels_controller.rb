@@ -9,7 +9,6 @@ class HostelsController < ApplicationController
     @room = Room.new
     @review = Review.new
     @amenity_tag = AmenityTag.new
-    @reservation = Reservation.new
   end
 
   def create
