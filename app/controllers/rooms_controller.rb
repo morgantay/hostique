@@ -1,5 +1,5 @@
 class RoomsController < ApplicationController
-  before_action :set_hostel
+  before_action :set_hostel, except: %i[destroy update]
   before_action :set_room, only: %i[new update destroy]
 
   def create
@@ -16,7 +16,12 @@ class RoomsController < ApplicationController
     # new
   end
 
+  def edit
+
+  end
+
   def update
+    @hostel = @room.hostel
     @room.update(room_params)
     if @room.save
       redirect_to hostel_path(@hostel)
@@ -26,8 +31,9 @@ class RoomsController < ApplicationController
   end
 
   def destroy
+    @hostel = @room.hostel
     @room.destroy
-    redirect_to @hostel, status: :see_other
+    redirect_to hostel_path(@hostel), status: :see_other
   end
 
   private

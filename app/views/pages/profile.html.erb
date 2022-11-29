@@ -46,8 +46,17 @@
             <%= reservation.end_date %>
           </div>
           <div class='buttons'>
-            <%= link_to 'update', '#', class: 'button' %>
             <%= link_to 'cancel', reservation_path(reservation), data: {turbo_method: :delete}, class: 'button' %>
+          </div>
+          <div class="edit-res-container">
+            edit
+            <div class="edit-res-form">
+            <%= simple_form_for(reservation) do |f| %>
+                <%= f.input :start_date, as: :date %>
+                <%= f.input :end_date, as: :date %>
+                 <%= f.submit "Edit Reservation" %>
+            <% end %>
+            </div>
           </div>
         </li>
       <% end %>
@@ -56,6 +65,27 @@
 </div>
 
 <style>
+  .edit-res-container{
+    background:red;
+  }
+
+  .edit-res-form{
+     overflow: hidden;
+     height: 0;
+     background: white;
+      -webkit-transition: all .8s ease;
+      -moz-transition: all .8s ease;
+      -ms-transition: all .8s ease;
+      -o-transition: all .8s ease;
+      transition: all .8s ease;
+  }
+
+  .edit-res-container:hover .edit-res-form{
+    height: 300px;
+    overflow-y:auto;
+    display: block;
+  }
+  
   .main {
     background-color: #2C2520;
     height: 100vh;
