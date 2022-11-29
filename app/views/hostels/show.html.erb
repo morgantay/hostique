@@ -4,13 +4,19 @@
   <% @hostel.rooms.each do |room| %>
     <li>
       <%= room.number_of_beds %>
+      <%= room.price_per_night %>
+      <%= room.name %>
+      <%= room.description %>
       <%= link_to 'delete', room_path(room), data: {turbo_method: :delete} %>
     </li>
   <% end %>
 </ul>
 
 <%= simple_form_for([@hostel, @room]) do |f| %>
-  <%= f.input :number_of_beds %>
+  <%= f.input :number_of_beds, as: :integer %>
+  <%= f.input :price_per_night, as: :integer %>
+  <%= f.input :name %>
+  <%= f.input :description, as: :text %>
   <%= f.submit %>
 <% end %>
 
@@ -28,3 +34,14 @@
   <%= f.input :rating, collection: (1..5).to_a %>
   <%= f.submit %>
 <% end %>
+
+<%= simple_form_for([@hostel, @amenity_tag]) do |f| %>
+  <%= f.association :amenity %>
+  <%= f.submit %>
+<% end %>
+
+<%# <%= simple_form_for([@room, @reservation]) do |f| %>
+  <%# <%= f.input :start_date, as: :date %>
+  <%# <%= f.input :end_date, as: :date %>
+  <%# <%= f.submit %>
+<%# <% end %>

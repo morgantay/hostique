@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
   root to: "pages#home"
+  get '/profile', to: 'pages#profile'
 
   resources :hostels, except: %i[new edit] do
     resources :rooms, only: %i[create]
