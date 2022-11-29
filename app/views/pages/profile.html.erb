@@ -29,4 +29,18 @@
       <% end %>
     </ul>
   </div>
+
+  <div class='reservations'>
+    <ul>
+      <% current_user.reservations.each do |reservation| %>
+        <li>
+          <%= reservation.start_date %>
+          <%= reservation.end_date %>
+          <%= reservation.room.hostel.name %>
+          <%= reservation.room.hostel.city %>
+          <%= link_to 'cancel booking', reservation_path(reservation), data: {turbo_method: :delete}   %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 </div>

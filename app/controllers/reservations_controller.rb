@@ -1,7 +1,7 @@
 class ReservationsController < ApplicationController
   before_action :set_reservation, only: %i[update destroy]
-  before_action :set_room, only: %i[create]
-  before_action :set_hostel, only: %i[create]
+  before_action :set_room, only: :create
+  before_action :set_hostel, only: :create
 
   def create
     @reservation = Reservation.new(reservation_params)
@@ -10,16 +10,16 @@ class ReservationsController < ApplicationController
     if @reservation.save
       redirect_to hostel_path(@hostel)
     else
-      render "hostels/show", status: :unprocessable_entity
+      redirect_to hostel_path(@hostel), status: :unprocessable_entity
     end
   end
 
   def update
     @reservation.update(reservation_params)
     if @reservation.save
-      redirect_to profile_path(current_user)
+      redirect_to profile_path
     else
-      render "/users/profile", status: :unprocessable_entity
+      redirect_to profile_path, status: :unprocessable_entity
     end
   end
 
