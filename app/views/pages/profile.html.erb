@@ -4,13 +4,15 @@
   </div>
 
   <div class='add-listing-form'>
-    <%= simple_form_for(@hostel) do |f| %>
-      <%= f.input :name %>
-      <%= f.input :city %>
-      <%= f.input :address %>
-      <%= f.input :description, as: :text %>
-      <%= f.submit %>
-    <% end %>
+    <div class='form'>
+      <%= simple_form_for(@hostel) do |f| %>
+        <%= f.input :name %>
+        <%= f.input :city %>
+        <%= f.input :address %>
+        <%= f.input :description, as: :text %>
+        <%= f.submit %>
+      <% end %>
+    </div>
   </div>
 
   <div class='user-listings'>
@@ -21,7 +23,22 @@
           <%= hostel.city %>
           <%= hostel.address %>
           <%= hostel.description %>
+          <%= link_to 'update listing', edit_hostel_path(hostel.id) %>
           <%= link_to 'remove listing', hostel_path(hostel), data: {turbo_method: :delete} %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class='reservations'>
+    <ul>
+      <% current_user.reservations.each do |reservation| %>
+        <li>
+          <%= reservation.start_date %>
+          <%= reservation.end_date %>
+          <%= reservation.room.hostel.name %>
+          <%= reservation.room.hostel.city %>
+          <%= link_to 'cancel booking', reservation_path(reservation), data: {turbo_method: :delete}   %>
         </li>
       <% end %>
     </ul>

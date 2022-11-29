@@ -1,5 +1,5 @@
 class HostelsController < ApplicationController
-  before_action :set_hostel, only: %i[show update destroy]
+  before_action :set_hostel, only: %i[show edit update destroy]
 
   def index
     @hostels = Hostel.all
@@ -9,17 +9,15 @@ class HostelsController < ApplicationController
     @room = Room.new
     @review = Review.new
     @amenity_tag = AmenityTag.new
-    @reservation = Reservation.new
   end
 
   def create
     @hostel = Hostel.new(hostel_params)
     @hostel.user = current_user
     if @hostel.save
-      redirect_to root_path
-      # redirect_to hostel_path(@hostel)
+      redirect_to profile_path
     else
-      redirect_to root_path, status: :unprocessable_entity
+      redirect_to profile_path, status: :unprocessable_entity
     end
   end
 
