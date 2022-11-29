@@ -1,4 +1,4 @@
-class AmenitytagsController < ApplicationController
+class AmenityTagsController < ApplicationController
   before_action :set_hostel, only: %i[create]
 
   def create

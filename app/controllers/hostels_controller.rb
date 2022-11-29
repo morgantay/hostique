@@ -8,14 +8,18 @@ class HostelsController < ApplicationController
   def show
     @room = Room.new
     @review = Review.new
+    @amenity_tag = AmenityTag.new
+    @reservation = Reservation.new
   end
 
   def create
     @hostel = Hostel.new(hostel_params)
+    @hostel.user = current_user
     if @hostel.save
-      redirect_to hostel_path(@hostel)
+      redirect_to root_path
+      # redirect_to hostel_path(@hostel)
     else
-      render :new, status: :unprocessable_entity
+      redirect_to root_path, status: :unprocessable_entity
     end
   end
 
@@ -30,13 +34,13 @@ class HostelsController < ApplicationController
 
   def destroy
     @hostel.destroy
-    redirect_to hostels_path
+    redirect_to profile_path
   end
 
   private
 
   def hostel_params
-    params.require(:hostel).permit(:name, :city, :address, :description, :rating)
+    params.require(:hostel).permit(:name, :city, :address, :description)
   end
 
   def set_hostel
