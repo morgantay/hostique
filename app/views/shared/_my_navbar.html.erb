@@ -1,0 +1,24 @@
+<div class="my-navbar">
+  <%= link_to "HOSTIQUE", root_path, class: "title", style:"padding-right:0px" %>
+  <%= form_with url: root_path, method: :get, class: "d-flex" do  %>
+          <%= text_field_tag :query,
+            params[:query],
+            class: "form-control, search-input",
+            placeholder: "search cities..."
+            %>
+            <%= button_tag type: "submit", class:"search-icon" do  %>
+              <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
+            <% end %>
+  <% end %>
+  <% if user_signed_in? %>
+            <div class="right-nav">
+              <%= link_to "Home", root_path, class: "nav-links" %>
+              <%= link_to "Profile", profile_path, class: "nav-links" %>
+            </div>
+  <% else %>
+          <li class="nav-item">
+            <%= link_to "Login", new_user_session_path, class: "nav-link  nav-links" %>
+          </li>
+  <% end %>
+</div>
+<div class="nav-sep-container"></div>

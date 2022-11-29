@@ -2,7 +2,12 @@ class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: :home
 
   def home
-    @hostels = Hostel.all
+    if params[:query].present?
+      @hostels = Hostel.where(city: params[:query])
+    else
+      @hostels = Hostel.all
+    end
+    @hostel = Hostel.new
   end
 
   def profile

@@ -1,10 +1,15 @@
-<ul>
+
+<div class="hostels-container">
+
   <% @hostels.each do |hostel| %>
-    <li>
-      <%= link_to "#{hostel.name}", hostel_path(hostel) %>
+    <div class="hostel-container">
+      <div class="image-container"></div>
+      <%= link_to "#{hostel.name}", hostel_path(hostel), class:"hostel-name" %> <br>
       <%= hostel.city %>
-      <%= hostel.address %>
-      <%= hostel.description %>
+      <%# <%= hostel.address %>
+      <%# <%= hostel.description %>
     </li>
+    </div>
   <% end %>
-</ul>
+
+</div>
