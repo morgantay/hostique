@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   root to: "pages#home"
 
-  resources :hostels, except: :edit do
-    resources :rooms, only: %i[new create]
+  resources :hostels, except: %i[new edit] do
+    resources :rooms, only: %i[create]
     resources :reviews, only: %i[create]
     resources :wishlist_tags, only: %i[create]
     resources :amenity_tags, only: %i[create]

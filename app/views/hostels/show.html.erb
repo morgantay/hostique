@@ -1,5 +1,30 @@
-<% if @hostel.user == current_user %>
-  <%= link_to "add room", new_hostel_room_path(@hostel) %>
-  
+<%= @hostel.name %>
 
+<ul>
+  <% @hostel.rooms.each do |room| %>
+    <li>
+      <%= room.number_of_beds %>
+      <%= link_to 'delete', room_path(room), data: {turbo_method: :delete} %>
+    </li>
+  <% end %>
+</ul>
+
+<%= simple_form_for([@hostel, @room]) do |f| %>
+  <%= f.input :number_of_beds %>
+  <%= f.submit %>
+<% end %>
+
+<ul>
+  <% @hostel.reviews.each do |review| %>
+    <li>
+      <%= review.content %>
+      <%= review.rating %>
+    </li>
+  <% end %>
+</ul>
+
+<%= simple_form_for([@hostel, @review]) do |f| %>
+  <%= f.input :content, as: :text %>
+  <%= f.input :rating, collection: (1..5).to_a %>
+  <%= f.submit %>
 <% end %>
