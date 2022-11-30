@@ -7,6 +7,7 @@ class HostelsController < ApplicationController
 
   def show
     authorize @hostel
+    @rooms = @hostel.rooms
     @room = Room.new
     @review = Review.new
     @amenity_tag = AmenityTag.new
