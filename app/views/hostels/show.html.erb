@@ -18,25 +18,27 @@
             <div class="room-info-container">
               <a href="#<%=room.id%>"> <h4><%= room.name %></h4></a>
               <div class="room-details-container">
-                <p><%= room.number_of_beds %> beds</p><br>
+                <p><%= room.number_of_beds %> beds</p> <br>
                 <p><%= room.price_per_night %> USD</p>
               </div>
             </div>
 
             <div>
-              <%= link_to 'remove', room_path(room), data: {turbo_method: :delete} %>
-              <div class="edit-container">
-                edit
-                <div class="edit-form">
-                  <%= simple_form_for(room) do |f| %>
-                    <%= f.input :number_of_beds, as: :integer %>
-                    <%= f.input :price_per_night, as: :integer %>
-                    <%= f.input :name %>
-                    <%= f.input :description, as: :text %>
-                    <%= f.submit "Update" %>
-                  <% end %>
+              <%= link_to 'remove', room_path(room), data: {turbo_method: :delete} if policy(room.hostel).destroy? %>
+              <% if policy(room.hostel).edit? %>
+                <div class="edit-container">
+                  edit
+                  <div class="edit-form">
+                    <%= simple_form_for(room) do |f| %>
+                      <%= f.input :number_of_beds, as: :integer %>
+                      <%= f.input :price_per_night, as: :integer %>
+                      <%= f.input :name %>
+                      <%= f.input :description, as: :text %>
+                      <%= f.submit "Update" %>
+                    <% end %>
+                  </div>
                 </div>
-              </div>
+              <% end %>
             </div>
           </div>
       <% end %>
