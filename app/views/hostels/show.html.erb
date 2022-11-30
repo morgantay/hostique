@@ -104,9 +104,10 @@
       <div class="booking-container">
         <h2>Book your stay now!</h2>
         <%= simple_form_for([room, @reservation]) do |f| %>
-                <%= f.input :start_date, as: :date, order: %i[day month year], html5: true %>
-                <%= f.input :end_date, as: :date, order: %i[day month year], html5: true %>
-                <%= f.submit %>
+          <%= f.input :start_date, as: :date, order: %i[day month year], html5: true %>
+          <%= f.input :end_date, as: :date, order: %i[day month year], html5: true %>
+          <%= f.input :room_quantity, collection: 1..room.number_of_beds %>
+          <%= f.submit %>
         <% end %>
       </div>
   </div>
