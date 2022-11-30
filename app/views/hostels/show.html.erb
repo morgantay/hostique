@@ -10,8 +10,9 @@
         <%= room.price_per_night %>
         <%= room.name %>
         <%= room.description %>
-        <%= link_to 'remove', room_path(room), data: {turbo_method: :delete} %>
-
+        <% if policy(room.hostel).destroy? %>
+          <%= link_to 'remove', room_path(room), data: {turbo_method: :delete} %>
+        <% end %>
        <div class="edit-container">
           edit
           <div class="edit-form">
@@ -61,7 +62,9 @@
     <% @hostel.amenities.each do |amenity| %>
       <li>
         <%= amenity.name %>
-        <%= link_to 'remove', amenity_tag_path(amenity.amenity_tag), data: {turbo_method: :delete} %>
+        <% if policy(amenity.amenity_tag.hostel).destroy? %>
+          <%= link_to 'remove', amenity_tag_path(amenity.amenity_tag), data: {turbo_method: :delete} %>
+        <% end %>
       </li>
     <% end %>
   </ul>

@@ -7,6 +7,7 @@ class ReservationsController < ApplicationController
     @reservation = Reservation.new(reservation_params)
     @reservation.room = @room
     @reservation.user = current_user
+    authorize @reservation
     if @reservation.save
       redirect_to hostel_path(@hostel)
     else
@@ -15,6 +16,7 @@ class ReservationsController < ApplicationController
   end
 
   def update
+    authorize @reservation
     @reservation.update(reservation_params)
     if @reservation.save
       redirect_to profile_path
@@ -24,6 +26,7 @@ class ReservationsController < ApplicationController
   end
 
   def destroy
+    authorize @reservation
     @reservation.destroy
     redirect_to profile_path
   end

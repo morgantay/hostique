@@ -5,6 +5,7 @@ class ReviewsController < ApplicationController
     @review = Review.new(review_params)
     @review.hostel = @hostel
     @review.user = current_user
+    authorize @review
     if @review.save
       redirect_to hostel_path(@hostel)
     else
