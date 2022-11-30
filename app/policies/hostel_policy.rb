@@ -17,6 +17,10 @@ class HostelPolicy < ApplicationPolicy
     record.user == user
   end
 
+  def edit?
+    update?
+  end
+
   def update?
     record.user == user
   end
