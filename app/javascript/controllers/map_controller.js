@@ -1,21 +1,21 @@
-import { Controller } from "@hotwired/stimulus"
+// import { Controller } from "@hotwired/stimulus"
 
-// Connects to data-controller="map"
-export default class extends Controller {
-  static values = {
-    apiKey: String,
-  }
+// // Connects to data-controller="map"
+// export default class extends Controller {
+//   static values = {
+//     apiKey: String,
+//   }
 
-  connect() {
-    mapboxgl.accessToken = this.apiKeyValue
+//   connect() {
+//     mapboxgl.accessToken = this.apiKeyValue
 
-    this.map = new mapboxgl.Map({
-      container: this.element,
-      style: "mapbox://styles/mapbox/streets-v10"
-    })
-    this.#addMarkersToMap()
-    // this.#fitMapToMarkers()
-  }
+//     this.map = new mapboxgl.Map({
+//       container: this.element,
+//       style: "mapbox://styles/mapbox/streets-v10"
+//     })
+//     // this.#addMarkersToMap()
+//     // this.#fitMapToMarkers()
+//   }
 
   // #addMarkersToMap() {
   //   this.markersValue.forEach((marker) => {
@@ -24,4 +24,5 @@ export default class extends Controller {
   //       .addTo(this.map)
   //   })
   // }
-}
+// }
+//
