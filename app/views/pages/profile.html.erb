@@ -10,6 +10,7 @@
         <%= f.input :city, class: 'input' %>
         <%= f.input :address, class: 'input' %>
         <%= f.input :description, as: :text, class: 'input' %>
+        <%= f.input :photos, as: :file, input_html: { multiple: true } %>
         <%= f.submit 'add listing', class: 'submit-btn' %>
       <% end %>
     </div>
