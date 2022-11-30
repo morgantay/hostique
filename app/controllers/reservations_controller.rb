@@ -21,7 +21,7 @@ class ReservationsController < ApplicationController
     if @reservation.save
       redirect_to profile_path
     else
-      redirect_to profile_path, status: :unprocessable_entity
+      render '/profile', status: :unprocessable_entity
     end
   end
 
