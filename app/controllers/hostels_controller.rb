@@ -6,11 +6,13 @@ class HostelsController < ApplicationController
   end
 
   def show
-    authorize @hostel
     @rooms = @hostel.rooms
     @room = Room.new
     @review = Review.new
     @amenity_tag = AmenityTag.new
+    hostel_coord = @hostel.geocode
+    @marker = { lng: hostel_coord[1], lat: hostel_coord[0],
+                style: 'mapbox://styles/mtbell1206/clb34hker000214qrxa23282q' }
   end
 
   def create
@@ -24,8 +26,11 @@ class HostelsController < ApplicationController
     end
   end
 
+  def edit
+    # edit
+  end
+
   def update
-    authorize @hostel
     @hostel.update(hostel_params)
     if @hostel.save
       redirect_to hostel_path(@hostel)
@@ -35,7 +40,6 @@ class HostelsController < ApplicationController
   end
 
   def destroy
-    authorize @hostel
     @hostel.destroy
     redirect_to profile_path
   end
@@ -48,5 +52,6 @@ class HostelsController < ApplicationController
 
   def set_hostel
     @hostel = Hostel.find(params[:id])
+    authorize @hostel
   end
 end

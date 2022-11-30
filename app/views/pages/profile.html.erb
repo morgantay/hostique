@@ -25,7 +25,7 @@
             <p><%= hostel.city %></p>
           </div>
           <div class='buttons'>
-            <%= link_to 'update', edit_hostel_path(hostel.id), class: 'button' %>
+            <%= link_to 'update', edit_hostel_path(hostel), class: 'button' %>
             <%= link_to 'remove', hostel_path(hostel), data: {turbo_method: :delete}, class: 'button' %>
           </div>
         </li>

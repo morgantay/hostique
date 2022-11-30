@@ -89,8 +89,8 @@
       <div class="booking-container">
         <h2>Book your stay now!</h2>
         <%= simple_form_for([room, @reservation]) do |f| %>
-                <%= f.input :start_date, as: :date %>
-                <%= f.input :end_date, as: :date %>
+                <%= f.input :start_date, as: :date, order: %i[day month year], html5: true %>
+                <%= f.input :end_date, as: :date, order: %i[day month year], html5: true %>
                 <%= f.submit %>
         <% end %>
       </div>
@@ -185,8 +185,9 @@
 </div>
 
 
-<div id='hostel-map' style="width: 100%; height: 600px;"
+<div id='hostelmap' style="width: 50%; height: 600px;"
   data-controller="map"
+  data-map-marker-value="<%= @marker.to_json %>"
   data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
 </div>
 
