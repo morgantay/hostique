@@ -1,8 +1,117 @@
+
+<div class="main-container" >
+
+  <div class="banner">
+    <div class="hostel-name-continer">
+      <h1><%= @hostel.name %></h1>
+    </div>
+
+    <div class="amenities-container">
+
+    </div>
+
+
+    <div class="hotel-rooms-container">
+      <% @hostel.rooms.each do |room| %>
+          <div class="room-container">
+            <div class="room-image-container"></div>
+            <div class="room-info-container">
+              <a href="#<%=room.id%>"> <h4><%= room.name %></h4></a>
+              <div class="room-details-container">
+                <p><%= room.number_of_beds %> beds</p> <br>
+                <p><%= room.price_per_night %> USD</p>
+              </div>
+            </div>
+
+            <div>
+              <%= link_to 'remove', room_path(room), data: {turbo_method: :delete} %>
+              <div class="edit-container">
+                edit
+                <div class="edit-form">
+                  <%= simple_form_for(room) do |f| %>
+                    <%= f.input :number_of_beds, as: :integer %>
+                    <%= f.input :price_per_night, as: :integer %>
+                    <%= f.input :name %>
+                    <%= f.input :description, as: :text %>
+                    <%= f.submit "Update" %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+      <% end %>
+    </div>
+  </div>
+
+</div>
+
+
+
+<% @hostel.rooms.each do |room| %>
+  <% @reservation = Reservation.new %>
+
+  <div id="<%=room.id%>" class="room">
+      <a href="#top" class="top-container">TOP
+      </a>
+      <div class="room-page-info-container">
+        <h2><%= room.name %> by <%= @hostel.name %></h2>
+        <p><%= room.number_of_beds %> beds</p>
+        <div class="separatior-line"></div>
+        <p class="description"><%= room.description %></p>
+        <div class="separatior-line"></div>
+
+        <div class="reviews-container">
+          <div class="review-btns-container" style="display:flex">
+            <h2>Reviews</h2>
+            <h4>Add Review</h4>
+
+          </div>
+          <% @hostel.reviews.each do |review| %>
+            <div class = "review-container">
+              <div class="stars-container">
+                <% count = review.rating %>
+                <% i = 0  %>
+                <% while i < count %>
+                <p class ="review-star">⭐️</p>
+                <% i += 1 %>
+                <% end %>
+              </div>
+              <p class ="review-text"><%= review.content %></p>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="price-container">
+        <h2><%= room.price_per_night %> USD</h2>
+        <h5>per night</h5>
+      </div>
+      <div class="booking-container">
+        <h2>Book your stay now!</h2>
+        <%= simple_form_for([room, @reservation]) do |f| %>
+                <%= f.input :start_date, as: :date %>
+                <%= f.input :end_date, as: :date %>
+                <%= f.submit %>
+        <% end %>
+      </div>
+  </div>
+<% end %>
+<%# <%@rooms.find() %>
+
+
+
+
+
+
+
+
+
 <div class='main'>
   <%= @hostel.name %>
 
   <ul>
     <% @hostel.rooms.each do |room| %>
+
       <h1>Room</h1>
       <li>
         <% @reservation = Reservation.new %>
@@ -25,7 +134,7 @@
           </div>
        </div>
 
-        <%= simple_form_for([room, @reservation]) do |f| %>
+      <%= simple_form_for([room, @reservation]) do |f| %>
           <%= f.input :start_date, as: :date %>
           <%= f.input :end_date, as: :date %>
           <%= f.submit %>
@@ -76,9 +185,183 @@
 
 <style>
 
-.edit-container{
-  background:red;
+.main-container{
+  padding:5vh 0;
+  height:90vh;
+  width:100vw;
+  background:rgb(44, 37, 32);
 }
+.banner{
+  width:90%;
+  height:350px;
+  background:white;
+  margin: 0 auto;
+  position:relative;
+}
+
+.hostel-name-continer{
+  position: absolute;
+  top:10%;
+  left:3%;
+}
+
+
+
+
+.hotel-rooms-container{
+  background:rgb(155 219 142);
+  width:50%;
+  height:400px;
+  position:absolute;
+  top: 71%;
+  overflow-y:auto;
+  left: 45%;
+  scroll-padding: 20px;
+
+}
+
+
+
+.room-container{
+  padding:20px;
+  display: flex;
+  justify-content:space-around;
+  width:90%;
+  /* border:1px solid black;   */
+  margin:40px auto;
+  background:white;
+
+}
+
+.room-image-container{
+  width:23%;
+  height:118px;
+  background:grey;
+}
+
+.room-details-container{
+  display:flex;
+  width: 142px;
+  justify-content: space-between;
+}
+
+
+
+.room-info-container{
+  margin-left:20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.room-info-container a{
+  text-decoration:none;
+  color:rgb(44, 37, 32);
+
+}
+
+.top-container{
+  margin-bottom:20px;
+  position:absolute;
+  right: 29.7%;
+  top: 11%;
+  text-decoration:none;
+  font-size:25px;
+  color:rgb(237, 115, 75);
+
+}
+
+
+.room{
+  padding:80px;
+  background:rgb(246 233 212);
+  height:100vh;
+  width:100vw;
+  position:relative;
+}
+
+.room-page-info-container{
+  width: 65%;
+  /* border:1px solid black; */
+}
+
+
+
+.separatior-line{
+  width:90%;
+  height:2px;
+  background:rgb(44, 37, 32);
+  margin:30px 0;
+}
+
+
+
+.description{
+  width:80%;
+}
+
+.booking-container{
+  padding:20px;
+  position: absolute;
+  width:25%;
+  height:300px;
+  background:rgb(237, 115, 75);
+  color:white;
+  top: 50%;
+  left: 67%;
+  box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+
+}
+
+
+.price-container{
+  padding:20px;
+  position: absolute;
+  width:25%;
+  height:100px;
+  background:white;
+  border: 2px solid black;
+  color:white;
+  top: 20%;
+  left: 67%;
+  box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+
+}
+
+.price-container h2, h5{
+  color:black;
+}
+
+
+.stars-container{
+  display:flex;
+}
+
+.review-container{
+  margin-top:10px;
+  width:90%;
+  border-bottom:1px solid #d2d2d2;
+}
+
+.review-btns-container{
+  display: flex;
+  justify-content:space-between;
+  align-items:center;
+  width:90%;
+}
+
+
+
+.amenities-container{
+  position:absolute;
+  border:2px solid rgb(237, 115, 75);
+  width:38%;
+  height:250px;
+  top: 113%;
+
+}
+
+
 
 .edit-form{
    overflow: hidden;
@@ -93,6 +376,7 @@
 
 .edit-container:hover .edit-form{
   height: 300px;
+
   overflow-y:auto;
   display: block;
 }
