@@ -17,9 +17,3 @@ Amenity.create!(name: 'Linen Included')
 Amenity.create!(name: 'Towels for hire')
 Amenity.create!(name: 'Bar')
 
-
-Hostel.destroy_all
-
-6.times do
-  hostel = Hostel.create!(name: Faker::Company.name, address: Faker::Address.street_address, user: User.all.sample)
-end
