@@ -12,31 +12,47 @@
 
 
     <div class="hotel-rooms-container">
+      <div class="add-room-btn">Add Room
+      <div class="add-room-form">
+        <%= simple_form_for([@hostel, @room]) do |f| %>
+          <%= f.input :number_of_beds, as: :integer %>
+          <%= f.input :price_per_night, as: :integer %>
+          <%= f.input :name %>
+          <%= f.input :description, as: :text %>
+          <%= f.input :photo, as: :file %>
+          <%= f.submit %>
+        <% end %>
+      </div>
+      </div>
       <% @hostel.rooms.each do |room| %>
           <div class="room-container">
-            <div class="room-image-container"></div>
+            <div class="room-image-container">
+              <%= cl_image_tag room.photo.key, height: 130, width: 150, crop: :fill %>
+            </div>
             <div class="room-info-container">
               <a href="#<%=room.id%>"> <h4><%= room.name %></h4></a>
               <div class="room-details-container">
-                <p><%= room.number_of_beds %> beds</p><br>
+                <p><%= room.number_of_beds %> beds</p> <br>
                 <p><%= room.price_per_night %> USD</p>
               </div>
             </div>
 
             <div>
-              <%= link_to 'remove', room_path(room), data: {turbo_method: :delete} %>
-              <div class="edit-container">
-                edit
-                <div class="edit-form">
-                  <%= simple_form_for(room) do |f| %>
-                    <%= f.input :number_of_beds, as: :integer %>
-                    <%= f.input :price_per_night, as: :integer %>
-                    <%= f.input :name %>
-                    <%= f.input :description, as: :text %>
-                    <%= f.submit "Update" %>
-                  <% end %>
+              <%= link_to 'remove', room_path(room), data: {turbo_method: :delete} if policy(room.hostel).destroy? %>
+              <% if policy(room.hostel).edit? %>
+                <div class="edit-container">
+                  edit
+                  <div class="edit-form">
+                    <%= simple_form_for(room) do |f| %>
+                      <%= f.input :number_of_beds, as: :integer %>
+                      <%= f.input :price_per_night, as: :integer %>
+                      <%= f.input :name %>
+                      <%= f.input :description, as: :text %>
+                      <%= f.submit "Update" %>
+                    <% end %>
+                  </div>
                 </div>
-              </div>
+              <% end %>
             </div>
           </div>
       <% end %>
@@ -49,7 +65,6 @@
 
 <% @hostel.rooms.each do |room| %>
   <% @reservation = Reservation.new %>
-
   <div id="<%=room.id%>" class="room">
       <a href="#top" class="top-container">TOP
       </a>
@@ -149,6 +164,7 @@
     <%= f.input :price_per_night, as: :integer %>
     <%= f.input :name %>
     <%= f.input :description, as: :text %>
+    <%= f.input :photo, as: :file %>
     <%= f.submit %>
   <% end %>
 
@@ -193,6 +209,15 @@
 
 
 <style>
+
+.add-room-btn{
+
+}
+
+.add-room-btn:hover .add-room-form{
+  height: 100%;
+  display: block;
+}
 
 .main-container{
   padding:5vh 0;
@@ -372,10 +397,10 @@
 
 
 
-.edit-form{
-   overflow: hidden;
+.edit-form, .add-room-form{
+    overflow: hidden;
     height: 0;
-    background: white;
+    /* background: white; */
     -webkit-transition: all .8s ease;
     -moz-transition: all .8s ease;
     -ms-transition: all .8s ease;
