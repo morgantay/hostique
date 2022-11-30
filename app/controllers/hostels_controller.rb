@@ -2,10 +2,11 @@ class HostelsController < ApplicationController
   before_action :set_hostel, only: %i[show edit update destroy]
 
   def index
-    @hostels = Hostel.all
+    @hostels = policy_scope(Hostel).all
   end
 
   def show
+    authorize @hostel
     @rooms = @hostel.rooms
     @room = Room.new
     @review = Review.new
@@ -15,6 +16,7 @@ class HostelsController < ApplicationController
   def create
     @hostel = Hostel.new(hostel_params)
     @hostel.user = current_user
+    authorize @hostel
     if @hostel.save
       redirect_to profile_path
     else
@@ -23,6 +25,7 @@ class HostelsController < ApplicationController
   end
 
   def update
+    authorize @hostel
     @hostel.update(hostel_params)
     if @hostel.save
       redirect_to hostel_path(@hostel)
@@ -32,7 +35,7 @@ class HostelsController < ApplicationController
   end
 
   def destroy
-    raise
+    authorize @hostel
     @hostel.destroy
     redirect_to profile_path
   end
