@@ -21,7 +21,7 @@ class ReservationsController < ApplicationController
     if @reservation.save
       redirect_to profile_path
     else
-      redirect_to profile_path, status: :unprocessable_entity
+      render '/profile', status: :unprocessable_entity
     end
   end
 
@@ -34,7 +34,7 @@ class ReservationsController < ApplicationController
   private
 
   def reservation_params
-    params.require(:reservation).permit(:start_date, :end_date)
+    params.require(:reservation).permit(:start_date, :end_date, :room_quantity)
   end
 
   def set_reservation
