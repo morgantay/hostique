@@ -27,7 +27,7 @@
       <% @hostel.rooms.each do |room| %>
           <div class="room-container">
             <div class="room-image-container">
-              <%= cl_image_tag room.photo.key, height: 130, width: 150, crop: :fill %>
+              <%# cl_image_tag room.photo.key, height: 130, width: 150, crop: :fill %>
             </div>
             <div class="room-info-container">
               <a href="#<%=room.id%>"> <h4><%= room.name %></h4></a>
