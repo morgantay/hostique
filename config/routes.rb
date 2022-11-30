@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     resources :amenity_tags, only: :create
   end
 
-  resources :rooms, only: %i[edit update destroy] do
+  resources :rooms, only: %i[update destroy] do
     resources :reservations, only: :create
   end
 
