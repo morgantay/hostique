@@ -1,3 +1,4 @@
+require "faker"
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
 #
@@ -15,3 +16,10 @@ Amenity.create!(name: 'Breakfast Included')
 Amenity.create!(name: 'Linen Included')
 Amenity.create!(name: 'Towels for hire')
 Amenity.create!(name: 'Bar')
+
+
+Hostel.destroy_all
+
+6.times do
+  hostel = Hostel.create!(name: Faker::Company.name, address: Faker::Address.street_address, user: User.all.sample)
+end
