@@ -9,9 +9,9 @@ class ReservationsController < ApplicationController
     @reservation.user = current_user
     authorize @reservation
     if @reservation.save
-      redirect_to hostel_path(@hostel)
+      redirect_to profile_path, notice: "Your reservation at #{@reservation.room.hostel.name} has been made! Find details in your reservations."
     else
-      redirect_to hostel_path(@hostel), status: :unprocessable_entity
+      redirect_to hostel_path(@hostel), status: :unprocessable_entity, notice: "This room is fully booked during your dates"
     end
   end
 
@@ -19,7 +19,7 @@ class ReservationsController < ApplicationController
     authorize @reservation
     @reservation.update(reservation_params)
     if @reservation.save
-      redirect_to profile_path
+      redirect_to profile_path, notice: "Your reservation at #{@reservation.room.hostel.name} has been successfully updated."
     else
       render '/profile', status: :unprocessable_entity
     end
@@ -28,13 +28,13 @@ class ReservationsController < ApplicationController
   def destroy
     authorize @reservation
     @reservation.destroy
-    redirect_to profile_path
+    redirect_to profile_path, notice: "Your reservation at #{@reservation.room.hostel.name} has been canceled."
   end
 
   private
 
   def reservation_params
-    params.require(:reservation).permit(:start_date, :end_date, :room_quantity)
+    params.require(:reservation).permit(:start_date, :end_date, :amount_of_beds)
   end
 
   def set_reservation
