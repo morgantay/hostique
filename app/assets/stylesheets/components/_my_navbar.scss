@@ -18,12 +18,15 @@
   padding-left:30px;
   height:40px;
   width:500px;
-  border-radius:20px;
+  border-radius: 20px;
   border:none;
   background: #F2EFEF;
   color:#70665E;
   font-size:20px;
+}
 
+.search-input:focus {
+  outline: none;
 }
 
 .alert, .notice{

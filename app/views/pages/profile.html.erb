@@ -4,11 +4,15 @@
   </div>
 
   <div class='add-listing-form'>
-    <div class='form'>
+    <div id='form' class='form'>
+      <div id='exit-form'>
+        <p>X</p>
+      </div>
       <%= simple_form_for(@hostel) do |f| %>
         <%= f.input :name, class: 'input' %>
         <%= f.input :city, class: 'input' %>
-        <%= f.input :address, class: 'input' %>
+        <%= f.input :address, input_html: {data: {address_autocomplete_target: "address"}},
+            wrapper_html: {data: {controller: "address-autocomplete", address_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"]}} %>
         <%= f.input :description, as: :text, class: 'input' %>
         <%= f.input :photos, as: :file, input_html: { multiple: true } %>
         <%= f.submit 'add listing', class: 'submit-btn' %>
@@ -17,7 +21,10 @@
   </div>
 
   <div class='user-listings'>
-    <h3>my listings</h3>
+    <div class='listings'>
+      <h3>my listings</h3>
+      <a class='button' id='add-list-btn'>add a listing</a>
+    </div>
     <ul>
       <% @hostels.each do |hostel| %>
         <li>
@@ -26,7 +33,17 @@
             <p><%= hostel.city %></p>
           </div>
           <div class='buttons'>
-            <%= link_to 'update', edit_hostel_path(hostel), class: 'button' %>
+            <div id='edit-btn' class='button'>edit
+              <div class='edit-list-form'>
+                <%= simple_form_for(@hostel) do |f| %>
+                  <%= f.input :name %>
+                  <%= f.input :city %>
+                  <%= f.input :address %>
+                  <%= f.input :description, as: :text %>
+                  <%= f.submit 'edit listing', class: 'submit-btn' %>
+                <% end %>
+              </div>
+            </div>
             <%= link_to 'remove', hostel_path(hostel), data: {turbo_method: :delete}, class: 'button' %>
           </div>
         </li>
@@ -35,61 +52,137 @@
   </div>
 
   <div class='reservations'>
-    <h3>my future bookings</h3>
+    <h3>my reservations</h3>
     <ul>
       <% current_user.reservations.each do |reservation| %>
-        <% @hostel = reservation.room.hostel %>
-        <li>
-          <div class='booking-info'>
-            <%= link_to "#{@hostel.name}", hostel_path(@hostel), class: 'hostel-name' %>
-            <%= @hostel.city %>
-            <%= reservation.start_date %>
-            <%= reservation.end_date %>
-          </div>
-          <div class='buttons'>
-            <%= link_to 'cancel', reservation_path(reservation), data: {turbo_method: :delete}, class: 'button' %>
-          </div>
-          <div class="edit-res-container">
-            edit
-            <div class="edit-res-form">
-            <%= simple_form_for(reservation) do |f| %>
-                <%= f.input :start_date, as: :date %>
-                <%= f.input :end_date, as: :date %>
-                 <%= f.submit "Edit Reservation" %>
-            <% end %>
+        <% if reservation.end_date > Date.today %>
+          <% @hostel = reservation.room.hostel %>
+          <li>
+            <div class='booking-info'>
+              <%= link_to "#{@hostel.name}", hostel_path(@hostel), class: 'hostel-name' %>
+              <p><%= @hostel.city %></p>
             </div>
-          </div>
-        </li>
+            <div class='res-dates'>
+              <% nights = (reservation.end_date - reservation.start_date).to_s.split('/')[0] %>
+              <p>$<%= (reservation.room.price_per_night * nights.to_i) * reservation.amount_of_beds %> to pay on arrival</p>
+              <p><%= reservation.start_date.to_formatted_s(:long) %></p>
+              <p>to <%= reservation.end_date.to_formatted_s(:long) %></p>
+            </div>
+            <div class='buttons'>
+              <div id='edit-btn' class='button'>edit
+                <div class='edit-res-form'>
+                  <%= simple_form_for(reservation) do |f| %>
+                    <%= f.input :start_date, as: :date, html5: true %>
+                    <%= f.input :end_date, as: :date, html5: true %>
+                    <%= f.input :amount_of_beds, collection: 1..reservation.room.number_of_beds %>
+                    <%= f.submit "edit reservation", class: 'submit-btn' %>
+                  <% end %>
+                </div>
+              </div>
+              <%= link_to 'cancel', reservation_path(reservation), data: {turbo_method: :delete}, class: 'button' %>
+            </div>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
+    <h3>my past reservations</h3>
+    <ul>
+      <% current_user.reservations.each do |reservation| %>
+        <% if reservation.end_date < Date.today %>
+          <% @hostel = reservation.room.hostel %>
+          <li>
+            <div class='listed-hostels-info'>
+              <%= link_to "#{@hostel.name}", hostel_path(@hostel), class: 'hostel-name' %>
+              <p><%= @hostel.city %></p>
+            </div>
+            <div class='res-dates'>
+              <p><%= reservation.start_date.to_formatted_s(:long) %></p>
+              <p>to <%= reservation.end_date.to_formatted_s(:long) %></p>
+            </div>
+            <div class='buttons'>
+              <div id='review-btn' class='button'>leave a review
+                <div class="add-review-form">
+                  <%= simple_form_for([@hostel, @review]) do |f| %>
+                      <%= f.input :content, as: :text %>
+                      <%= f.input :rating, collection: (1..5).to_a %>
+                      <%= f.submit 'add review', class: 'submit-btn' %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </li>
+        <% end %>
       <% end %>
     </ul>
   </div>
 </div>
 
-<style>
-  .edit-res-container{
-    background:red;
-  }
+<script>
+  const addBtn = document.getElementById('add-list-btn')
+  const closeBtn = document.getElementById('exit-form')
 
-  .edit-res-form{
+  addBtn.addEventListener('click', (event) => {
+    document.getElementById('form').style.display = "block";
+  })
+
+  closeBtn.addEventListener('click', (event) => {
+    document.getElementById('form').style.display = "none";
+  })
+</script>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;0,600;1,200&display=swap');
+
+  body {
+    font-family: 'Poppins', sans-serif;
+  }
+  .edit-res-form, .edit-list-form, .add-review-form {
+    position: absolute;
+    top: 100%;
+    left: 0;
     overflow: hidden;
     height: 0;
-     background: white;
-      -webkit-transition: all .8s ease;
-      -moz-transition: all .8s ease;
-      -ms-transition: all .8s ease;
-      -o-transition: all .8s ease;
-      transition: all .8s ease;
+    width: 252px;
+    opacity: 0;
+    background: linear-gradient(to left, #7CD2DE, #ED734B);
+    padding: 10px;
+    transition: all .5s ease;
   }
 
-  .edit-res-container:hover .edit-res-form{
-    height: 300px;
-    overflow-y:auto;
-    display: block;
+  #edit-btn:hover .edit-list-form,
+  #edit-btn:hover .edit-res-form {
+    opacity: 1;
+    z-index: 2;
+  }
+
+  #edit-btn:hover .edit-list-form { height: 420px }
+
+  #edit-btn:hover .edit-res-form {height: 350px }
+
+  #edit-btn {
+    cursor: pointer;
+    width: 50%;
+    text-align: center;
+    align-self: center;
+    background-color: #ED734B;
+    padding: 5px;
+  }
+
+  #review-btn:hover .add-review-form {
+    opacity: 1;
+    z-index: 2;
+    height: 280px;
+  }
+
+  #review-btn {
+    cursor: pointer;
   }
 
   .main {
-    background-color: #2C2520;
-    height: 100vh;
+    background-color: #E6CFAD;
+    width: 100%;
+    height: auto;
+    overflow: scroll;
   }
 
   ul {
@@ -97,62 +190,109 @@
     padding: 0;
   }
 
+  li {
+    position: relative;
+  }
+
   a {
     text-decoration: none;
-    color: black;
+    color: #1B1B1F;
+  }
+
+  .listings {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  #add-list-btn {
+    width: 150px;
+    cursor: pointer;
   }
 
   /* BUTTONS */
 
-  li .buttons {
+  .buttons {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    position: relative;
   }
 
-  li .button {
+  .button {
     background-color: #ED734B;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
     padding: 5px;
     width: 50%;
     text-align: center;
   }
 
-  li .button:hover {
-    background: linear-gradient(to right, #ED734B, #9BDB8E);
-    color: black;
+  .button:hover {
+    background: linear-gradient(to right, #7CD2DE, #ED734B);
+    color: #1B1B1F;
   }
 
-  li .hostel-name {
+  .hostel-name {
     font-size: 25px;
-    margin: 10px;
+    color: #FFFFFF;
+  }
+
+  .hostel-name:hover {
+    color: #7CD2DE;
+    transition: all .5s ease;
   }
 
   .user-info h1 {
-    color: #FFFFFF;
+    color: #1B1B1F;
+    margin: 20px;
   }
+
+  /* ADD LISTING */
 
   .form {
     padding: 20px;
     width: 25%;
-    background-color: #E6CFAD;
+    background-color: #ED734B;
     position: absolute;
-    top: 200px;
-    right: 100px;
-    display: block;
+    top: 20%;
+    left: 40%;
+    display: none;
     z-index: 2;
+    transition: all 1s ease;
   }
 
   .submit-btn {
-    border: 1px solid #2C2520;
-    background-color: #ED734B;
+    background-color: #2C2520;
     padding: 5px;
     width: 100%;
-  }
-  h3 {
     color: #FFFFFF;
-    margin: 20px;
+    border: none;
+  }
+
+  .submit-btn:hover {
+    opacity: 0.5;
+    transition: all .5s ease;
+  }
+
+  #exit-form {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    cursor: pointer;
+  }
+
+  #exit-form p {
+    font-size: 20px;
+    font-weight: bolder;
+  }
+
+  #exit-form:hover {
+    opacity: 0.5;
+    transition: all .5s ease;
+  }
+
+  /**/
+  h3 {
+    color: #1B1B1F;
+    margin: 30px;
   }
 
   .user-listings ul {
@@ -165,25 +305,20 @@
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    background-color: #E6CFAD;
+    background-color: #2C2520;
     margin: 10px;
     color-scheme: black;
-    width: 200px;
-    height: 200px;
+    width: 252px;
+    height: 250px;
     justify-content: space-between;
   }
 
-  .user-listings li .listed-hostels-info {
+  .listed-hostels-info {
     display: flex;
     flex-direction: column;
+    margin: 10px;
+    color: #FFFFFF;
   }
-
-  .user-listings li .listed-hostels-info p {
-      margin: 10px;
-      opacity: 0.7;
-  }
-
-  .reservations { height: 200px }
 
   .reservations ul {
     display: grid;
@@ -195,9 +330,33 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background-color: #E6CFAD;
-    width: 200px;
-    height: 200px;
+    background-color: #2C2520;
+    width: 252px;
+    height: 300px;
     margin: 10px;
+  }
+
+  .booking-info {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    color: #FFFFFF;
+  }
+
+  .booking-info p { margin-bottom: 0 }
+
+  .res-dates {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    color: #FFFFFF;
+  }
+
+  .res-dates p {
+    margin: 0;
+  }
+
+  #review-btn {
+    width: 100%;
   }
 </style>

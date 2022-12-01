@@ -13,5 +13,6 @@ class PagesController < ApplicationController
   def profile
     @hostels = Hostel.where(user: current_user)
     @hostel = Hostel.new
+    @review = Review.new
   end
 end

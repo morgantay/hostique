@@ -4,9 +4,9 @@
   <% @hostels.each do |hostel| %>
     <div class="hostel-container">
       <div class="image-container">
-          <% if hostel.photos.attached? %>
-            <%= cl_image_tag hostel.photos.first.key, height: 180, width: 290, crop: :fill %>
-          <% end %>
+        <% if hostel.photos.attached? %>
+          <%= cl_image_tag hostel.photos.first.key, height: 180, width: 290, crop: :fill %>
+        <% end %>
       </div>
       <%= link_to "#{hostel.name}", hostel_path(hostel), class:"hostel-name" %> <br>
       <%= hostel.city %>
