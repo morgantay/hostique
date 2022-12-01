@@ -5,6 +5,7 @@ class Room < ApplicationRecord
   has_many :reservations, dependent: :destroy
   has_one_attached :photo
 
+  validates :number_of_beds, :price_per_night, :name, presence: true
   after_validation :attach_default
 
   def attach_default

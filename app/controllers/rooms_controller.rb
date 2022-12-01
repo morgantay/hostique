@@ -7,9 +7,9 @@ class RoomsController < ApplicationController
     @room.hostel = @hostel
     authorize @room.hostel
     if @room.save
-      redirect_to hostel_path(@hostel)
+      redirect_to hostel_path(@hostel), notice: "#{@room.name} has been added."
     else
-      render "hostels/show", status: :unprocessable_entity
+      render "hostels/show", status: :unprocessable_entity, notice: "Failed to add #{@room.name}"
     end
   end
 
@@ -18,9 +18,9 @@ class RoomsController < ApplicationController
     @hostel = @room.hostel
     @room.update(room_params)
     if @room.save
-      redirect_to hostel_path(@hostel)
+      redirect_to hostel_path(@hostel), notice: "#{@room.name} has been updated."
     else
-      redirect_to hostel_path(@hostel), status: :unprocessable_entity
+      redirect_to hostel_path(@hostel), status: :unprocessable_entity, notice: "Failed to make changes to #{@room.name}."
     end
   end
 

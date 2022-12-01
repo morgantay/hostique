@@ -1,7 +1,6 @@
 
 <div class="main-container" >
-
-  <div class="banner"  style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.3)), url('<%= cl_image_path @hostel.photos.first.key, crop: :fill %>')">
+  <div class=“banner” style=“background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.3)), url(‘<%= cl_image_path @hostel.photos.first.key, crop: :fill %>’)“>>
     <div class="amenities-container">
       <% if policy(@hostel).create? %>
         <div class="amenity-text"> add amenity
@@ -23,9 +22,7 @@
       <h1><%= @hostel.name %></h1>
       <h3><%= @hostel.address %></h3>
     </div>
-
   </div>
-
 </div>
 
 
@@ -53,7 +50,6 @@
       <% @hostel.rooms.each do |room| %>
           <div class="room-container">
             <div class="room-image-container">
-              <%= cl_image_tag room.photo.key, height: 120, width: 150, crop: :fill %>
             </div>
             <div class="room-info-container">
               <a href="#<%=room.id%>"> <h4><%= room.name %></h4></a>
@@ -102,15 +98,6 @@
         <div class="reviews-container">
           <div class="review-btns-container" style="display:flex">
             <h2>Reviews</h2>
-            <div class="add-review-text">Add Review
-              <div class="add-review-form">
-                <%= simple_form_for([@hostel, @review]) do |f| %>
-                    <%= f.input :content, as: :text %>
-                    <%= f.input :rating, collection: (1..5).to_a %>
-                    <%= f.submit %>
-                <% end %>
-              </div>
-            </div>
           </div>
 
           <% @hostel.reviews.each do |review| %>
@@ -124,6 +111,7 @@
                 <% end %>
               </div>
               <p class ="review-text"><%= review.content %></p>
+              <p>-<%= review.user.first_name %></p>
             </div>
           <% end %>
         </div>
@@ -136,14 +124,15 @@
       <div class="booking-container">
         <h2>Book your stay now!</h2>
         <%= simple_form_for([room, @reservation]) do |f| %>
-          <%= f.input :start_date, as: :date, order: %i[day month year], html5: true %>
-          <%= f.input :end_date, as: :date, order: %i[day month year], html5: true %>
-          <%= f.input :room_quantity, collection: 1..room.number_of_beds %>
+          <%= f.input :start_date, as: :date, order: %i[day month year], html5: true, id: 'start-date'%>
+          <%= f.input :end_date, as: :date, order: %i[day month year], html5: true, id: 'end-date' %>
+          <%= f.input :amount_of_beds, collection: 1..room.number_of_beds %>
           <%= f.submit %>
         <% end %>
       </div>
   </div>
 <% end %>
+
 
 <style>
 

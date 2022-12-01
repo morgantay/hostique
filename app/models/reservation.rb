@@ -17,15 +17,17 @@ class Reservation < ApplicationRecord
 
   def available?
     reservations = Reservation.where(room: self.room)
-    reservations = reservations.filter do |reservation|
-      self.start_date <= reservation.end_date || self.end_date >= reservation.start_date
+    overlapping_reservations = reservations.filter do |reservation|
+      self.start_date < reservation.end_date || self.end_date > reservation.start_date
     end
     booked_beds = []
-    reservations.each do |reservation|
-      booked_beds << reservation.room_quantity
+    overlapping_reservations.each do |reservation|
+      booked_beds << reservation.amount_of_beds
     end
-    unless booked_beds.sum <= self.room.number_of_beds
-      errors.add :end_date, message: "overlapping with another reservation"
+    if booked_beds.sum >= self.room.number_of_beds
+      errors.add :end_date, message: "this room is fully booked!"
+    else
+      true
     end
   end
 end

@@ -1,20 +1,56 @@
-<h2>Log in</h2>
+<div class="container">
+  <h2>Log in</h2>
 
-<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), data: {turbo: false}) do |f| %>
-  <div class="form-inputs">
-    <%= f.input :email,
-                required: false,
-                autofocus: true,
-                input_html: { autocomplete: "email" } %>
-    <%= f.input :password,
-                required: false,
-                input_html: { autocomplete: "current-password" } %>
-    <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+  <div class="form">
+    <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), data: {turbo: false}) do |f| %>
+      <div class="form-inputs">
+        <%= f.input :email,
+                    required: false,
+                    autofocus: true,
+                    input_html: { autocomplete: "email" } %>
+        <%= f.input :password,
+                    required: false,
+                    input_html: { autocomplete: "current-password" } %>
+        <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+      </div>
+
+      <div class="form-actions">
+        <%= f.button :submit, "Log in", class: "login" %>
+      </div>
+    <% end %>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Log in" %>
+  <div class="devise-links">
+    <%= render "devise/shared/links" %>
   </div>
-<% end %>
+</div>
 
-<%= render "devise/shared/links" %>
+<style>
+  .container {
+    width: 30%;
+    margin-top: 50px;
+    border: 1px solid black;
+    padding: 20px;
+    background-color: #E6CFAD;
+  }
+
+  h2 {
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .login {
+    padding: 8px;
+    background-color: #ED734B;
+    border-radius: 0;
+  }
+
+  .login:hover {
+    background-color: #ED734B;
+    opacity: 0.5;
+  }
+
+  .devise-links {
+    margin-top: 20px;
+  }
+</style>

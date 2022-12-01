@@ -1,0 +1,188 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;0,600;1,200&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+.main {
+  background-color: #E6CFAD;
+  width: 100%;
+  height: auto;
+  overflow: scroll;
+
+  h1 {
+    color: #1B1B1F;
+    margin: 20px;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    margin: 20px;
+  }
+
+  li {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #2C2520;
+    width: 252px;
+    height: 300px;
+    margin: 10px;
+  }
+
+  a {
+    text-decoration: none;
+    color: white;
+  }
+
+  h3 {
+    color: #1B1B1F;
+    margin: 30px;
+  }
+}
+
+/* PROFILE CARDS */
+
+.hostel-info, .res-dates {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  color: #FFFFFF;
+
+  p {
+    margin-bottom: 0;
+  }
+
+  .hostel-name {
+    font-size: 25px;
+    color: #FFFFFF;
+  }
+
+  .hostel-name:hover {
+    opacity: 0.5;
+    transition: all .5s ease;
+  }
+}
+
+.listings {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+/* ADD LIST FORM */
+
+.form {
+  padding: 20px;
+  width: 25%;
+  background-color: #ED734B;
+  position: absolute;
+  top: 20%;
+  left: 40%;
+  display: none;
+  z-index: 2;
+  transition: all 1s ease;
+}
+
+#add-list-btn {
+  width: 150px;
+  cursor: pointer;
+}
+
+.submit-btn {
+  background-color: #2C2520;
+  padding: 5px;
+  width: 100%;
+  color: #FFFFFF;
+  border: none;
+}
+
+.submit-btn:hover {
+  opacity: 0.5;
+  transition: all .5s ease;
+}
+
+#exit-form {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  cursor: pointer;
+}
+
+#exit-form p {
+  font-size: 20px;
+  font-weight: bolder;
+}
+
+#exit-form:hover {
+  opacity: 0.5;
+  transition: all .5s ease;
+}
+
+/* DROPDOWN FORMS */
+
+.edit-res-form, .edit-list-form, .add-review-form {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  overflow: hidden;
+  height: 0;
+  width: 252px;
+  opacity: 0;
+  background: linear-gradient(to left, #7CD2DE, #ED734B);
+  padding: 10px;
+  transition: all .5s ease;
+}
+
+#edit-btn {
+  cursor: pointer;
+  width: 50%;
+  text-align: center;
+  align-self: center;
+  background-color: #ED734B;
+  padding: 5px;
+
+  &:hover .edit-list-form,
+  &:hover .edit-res-form {
+    opacity: 1;
+    z-index: 2;
+  }
+
+  &:hover .edit-list-form { height: 420px }
+  &:hover .edit-res-form {height: 350px }
+}
+
+#review-btn {
+  width: 100%;
+
+  &:hover .add-review-form {
+    opacity: 1;
+    z-index: 2;
+    height: 280px;
+  }
+}
+
+/* BUTTONS */
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: relative;
+}
+
+.button {
+  background-color: #ED734B;
+  padding: 5px;
+  width: 50%;
+  text-align: center;
+  cursor: pointer;
+}
+
+.button:hover {
+  background: linear-gradient(to right, #7CD2DE, #ED734B);
+  color: #1B1B1F;
+}

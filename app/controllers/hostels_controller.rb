@@ -7,6 +7,7 @@ class HostelsController < ApplicationController
 
   def show
     @rooms = @hostel.rooms
+    @reservation = Reservation.last
     @room = Room.new
     @review = Review.new
     @amenity_tag = AmenityTag.new
@@ -20,9 +21,9 @@ class HostelsController < ApplicationController
     @hostel.user = current_user
     authorize @hostel
     if @hostel.save
-      redirect_to profile_path
+      redirect_to profile_path, notice: "#{@hostel.name} has been listed!"
     else
-      redirect_to profile_path, status: :unprocessable_entity
+      redirect_to profile_path, status: :unprocessable_entity, notice: "Unable to list hostel."
     end
   end
 
@@ -33,9 +34,9 @@ class HostelsController < ApplicationController
   def update
     @hostel.update(hostel_params)
     if @hostel.save
-      redirect_to hostel_path(@hostel)
+      redirect_to hostel_path(@hostel), notice: "#{@hostel.name} has been updated."
     else
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_entity, notice: "Failed to make changes to #{@hostel.name}."
     end
   end
 
