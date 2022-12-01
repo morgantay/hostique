@@ -97,3 +97,4 @@ Hostel.create!(name: 'Zebra Crossing',
                 address: '82 New Church street, Gardens, Cape Town, South Africa',
                 description: 'Clean, quiet and friendly, Zebra Crossing is situated at the foot of Table Mountain close to cafe\'s, cinemas, supermarkets and museums.',
                 user: user)
+# comment
