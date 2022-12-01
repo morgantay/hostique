@@ -7,10 +7,10 @@ class AmenityTagPolicy < ApplicationPolicy
   end
 
   def create?
-    record.user == user
+    true
   end
 
   def destroy?
-    record.user == user
+    record.hostel.user == user
   end
 end

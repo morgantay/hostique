@@ -6,7 +6,9 @@
         <div class="amenity-text"> add amenity
           <div class="amenity-form">
             <%= simple_form_for([@hostel, @amenity_tag]) do |f| %>
-                <%= f.association :amenity %>
+                <%= f.input :amenity, collection: Amenity.all, input_html: { multiple: true, id: "select-tags",
+                data: {controller: "tom_select", tom_select_options_value: {tags: true}}},
+                include_hidden: false%>
                 <%= f.submit %>
             <% end %>
           </div>
