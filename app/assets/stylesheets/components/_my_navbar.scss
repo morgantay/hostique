@@ -80,10 +80,9 @@
   // padding-top:18px;
   align-items: center;
 }
+
 .nav-links{
-  color:white;
-  font-size:20px;
-  text-decoration: none;
+  font-size: 20px;
 }
 
 .nav-links:hover{
@@ -143,4 +142,11 @@ border:0;
   height:2px;
   background:rgb(237, 115, 75);
   margin-bottom:7px;
+}
+
+.login{
+  color: white;
+  font-size: 30px;
+  padding: 30px;
+  padding-bottom: 50px;
 }
