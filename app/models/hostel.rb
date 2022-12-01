@@ -5,7 +5,7 @@ class Hostel < ApplicationRecord
   has_many :rooms, dependent: :destroy
   has_many :reviews, dependent: :destroy
   has_many :amenity_tags, dependent: :destroy
-  has_many :amenities, through: :amenity_tags
+  has_many :amenities, through: :amenity_tags, dependent: :destroy
 
   has_many_attached :photos
 

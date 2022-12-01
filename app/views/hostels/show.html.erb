@@ -3,14 +3,18 @@
 
   <div class="banner"  style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.3)), url('<%= cl_image_path @hostel.photos.first.key, crop: :fill %>')">
     <div class="amenities-container">
-      <div class="amenity-text"> add amenity
-        <div class="amenity-form">
-          <%= simple_form_for([@hostel, @amenity_tag]) do |f| %>
-              <%= f.association :amenity %>
-              <%= f.submit %>
-          <% end %>
+      <% if policy(@hostel).create? %>
+        <div class="amenity-text"> add amenity
+          <div class="amenity-form">
+            <%= simple_form_for([@hostel, @amenity_tag]) do |f| %>
+                <%= f.input :amenity, collection: Amenity.all, input_html: { multiple: true, id: "select-tags",
+                data: {controller: "tom_select", tom_select_options_value: {tags: true}}},
+                include_hidden: false%>
+                <%= f.submit %>
+            <% end %>
+          </div>
         </div>
-      </div>
+      <% end %>
       <% @hostel.amenities.each do |amenity| %>
         <p><%= amenity.name %></p>
         <% end %>

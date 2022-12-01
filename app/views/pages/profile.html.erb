@@ -8,7 +8,13 @@
       <%= simple_form_for(@hostel) do |f| %>
         <%= f.input :name, class: 'input' %>
         <%= f.input :city, class: 'input' %>
-        <%= f.input :address, class: 'input' %>
+        <%# <%= f.input :address, class: 'input' %>
+
+        <%= f.input :address,
+            input_html: {data: {address_autocomplete_target: "adrress"}, class:"d-none"},
+            wrapper_html: {data: {controller: "address-autocomplete",
+             address_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"]}}
+        %>
         <%= f.input :description, as: :text, class: 'input' %>
         <%= f.input :photos, as: :file, input_html: { multiple: true } %>
         <%= f.submit 'add listing', class: 'submit-btn' %>
@@ -66,6 +72,30 @@
 </div>
 
 <style>
+
+.mapboxgl-ctrl-geocoder--input{
+  background:transparent;
+  border:none;
+  content:"Search City";
+  /* width:100%; */
+}
+
+.mapboxgl-ctrl-geocoder--input:focus{
+  border:none;
+  outline:none;
+}
+
+.mapboxgl-ctrl-geocoder {
+  padding-top:10px;
+  max-width: none;
+  width: 100%;
+  border: 1px solid lightgrey;
+  box-shadow: none;
+  background-color: #F4F4F4;
+}
+.auto-complete{
+  background:red;
+}
   .edit-res-container{
     background:red;
   }
