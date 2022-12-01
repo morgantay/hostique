@@ -63,6 +63,8 @@
               <p><%= @hostel.city %></p>
             </div>
             <div class='res-dates'>
+              <% nights = (reservation.end_date - reservation.start_date).to_s.split('/')[0] %>
+              <p>$<%= (reservation.room.price_per_night * nights.to_i) * reservation.amount_of_beds %> to pay on arrival</p>
               <p><%= reservation.start_date.to_formatted_s(:long) %></p>
               <p>to <%= reservation.end_date.to_formatted_s(:long) %></p>
             </div>
@@ -72,7 +74,7 @@
                   <%= simple_form_for(reservation) do |f| %>
                     <%= f.input :start_date, as: :date, html5: true %>
                     <%= f.input :end_date, as: :date, html5: true %>
-                    <%= f.input :room_quantity, collection: 1..reservation.room.number_of_beds %>
+                    <%= f.input :amount_of_beds, collection: 1..reservation.room.number_of_beds %>
                     <%= f.submit "edit reservation", class: 'submit-btn' %>
                   <% end %>
                 </div>
@@ -330,7 +332,7 @@
     justify-content: space-between;
     background-color: #2C2520;
     width: 252px;
-    height: 250px;
+    height: 300px;
     margin: 10px;
   }
 
@@ -340,6 +342,8 @@
     margin: 10px;
     color: #FFFFFF;
   }
+
+  .booking-info p { margin-bottom: 0 }
 
   .res-dates {
     display: flex;

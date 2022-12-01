@@ -1,6 +1,6 @@
 
 <div class="main-container" >
-  <div class=“banner”>
+  <div class=“banner” style=“background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.3)), url(‘<%= cl_image_path @hostel.photos.first.key, crop: :fill %>’)“>>
     <div class="amenities-container">
       <% if policy(@hostel).create? %>
         <div class="amenity-text"> add amenity
@@ -124,12 +124,13 @@
         <%= simple_form_for([room, @reservation]) do |f| %>
           <%= f.input :start_date, as: :date, order: %i[day month year], html5: true, id: 'start-date'%>
           <%= f.input :end_date, as: :date, order: %i[day month year], html5: true, id: 'end-date' %>
-          <%= f.input :room_quantity, collection: 1..room.number_of_beds %>
+          <%= f.input :amount_of_beds, collection: 1..room.number_of_beds %>
           <%= f.submit %>
         <% end %>
       </div>
   </div>
 <% end %>
+
 
 <style>
 
