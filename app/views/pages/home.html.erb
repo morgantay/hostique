@@ -8,12 +8,11 @@
             <%= cl_image_tag hostel.photos.first.key, class:"home-photo",crop: :fill %>
           <% end %>
       </div>
-      <div>
-      <%= link_to "#{hostel.name}", hostel_path(hostel), class:"hostel-name" %> <br>
-      <%= hostel.city %>
+      <div class="info-container">
+        <%= link_to "#{hostel.name}", hostel_path(hostel), class:"hostel-name" %> <br>
+        <%= hostel.city %>
       </div>
-      <%# <%= hostel.address %>
-      <%# <%= hostel.description %>
+      
     </li>
     </div>
   <% end %>

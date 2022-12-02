@@ -4,7 +4,14 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
+.user-info{
+    display: flex;
+    justify-content: flex-end;
+    margin-left:60px
+}
+
 .main {
+  padding-top:43px;  
   background-color: #E6CFAD;
   width: 100%;
   height: auto;
@@ -76,12 +83,13 @@ body {
 
 /* ADD LIST FORM */
 
-.form {
+.form { 
+ 
   padding: 20px;
   width: 25%;
   background-color: #ED734B;
   position: absolute;
-  top: 20%;
+  top: 60%;
   left: 40%;
   display: none;
   z-index: 2;

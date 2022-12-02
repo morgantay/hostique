@@ -99,13 +99,15 @@ Hostel.create!(name: 'Zebra Crossing',
                 user: user)
 
 
-# hostels = Hostel.all.where(latitude: nil)
-# hostels.each do |hostel|
-#   hostel.destroy
-# end
-# hostels = Hostel.all
-# hostels.each do |hostel|
-#   room = Room.create()
-#   hostel.rooms = room
-#   hostel.save
-# end
+hostels = Hostel.all.where(latitude: nil)
+hostels.each do |hostel|
+  hostel.destroy
+end
+hostels_add_rooms = Hostel.all.to_a
+hostels_add_rooms.each do |hostel|
+  5.times do
+    room = Room.new(name: Faker::Fantasy::Tolkien.location, number_of_beds: rand(1..10), price_per_night: rand(20..40), description:Faker::Fantasy::Tolkien.poem, quantity: 1 )
+    room.hostel = hostel
+    room.save
+  end
+end
