@@ -14,15 +14,15 @@
             <% end %>
   <% end %>
   <% if user_signed_in? %>
-            <div class="dropdown">
+            <div class="dropdown" data-controller="navbar">
               <button class="dropbtn">
-                <div class ="menu-lines" >
+                <div class ="menu-lines" data-action="click->navbar#drop">
                   <div class="line"></div>
                   <div class="line"></div>
                   <div class="line"></div>
                 </div>
               </button>
-              <div id="myDropdown" class="dropdown-content">
+            <div id="myDropdown" class="dropdown-content" data-navbar-target="dropdown">
                 <%= link_to "Home", root_path, class: "nav-links"%>
                 <%= link_to "Profile", profile_path, class: "nav-links"%>
                 <%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "nav-links" %>

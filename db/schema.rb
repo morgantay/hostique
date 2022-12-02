@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_01_192328) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_02_213701) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -62,9 +62,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_01_192328) do
     t.string "city"
     t.string "address"
     t.string "description"
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id"
     t.float "latitude"
     t.float "longitude"
     t.index ["user_id"], name: "index_hostels_on_user_id"
@@ -76,19 +76,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_01_192328) do
     t.bigint "room_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id"
     t.integer "amount_of_beds"
     t.index ["room_id"], name: "index_reservations_on_room_id"
-    t.index ["user_id"], name: "index_reservations_on_user_id"
   end
 
   create_table "reviews", force: :cascade do |t|
     t.string "content"
     t.integer "rating"
+    t.bigint "user_id", null: false
     t.bigint "hostel_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id"
     t.index ["hostel_id"], name: "index_reviews_on_hostel_id"
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
@@ -125,7 +123,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_01_192328) do
   add_foreign_key "amenity_tags", "hostels"
   add_foreign_key "hostels", "users"
   add_foreign_key "reservations", "rooms"
-  add_foreign_key "reservations", "users"
   add_foreign_key "reviews", "hostels"
   add_foreign_key "reviews", "users"
   add_foreign_key "rooms", "hostels"
