@@ -98,7 +98,6 @@ Hostel.create!(name: 'Zebra Crossing',
                 description: 'Clean, quiet and friendly, Zebra Crossing is situated at the foot of Table Mountain close to cafe\'s, cinemas, supermarkets and museums.',
                 user: user)
 
-
 # hostels = Hostel.all.where(latitude: nil)
 # hostels.each do |hostel|
 #   hostel.destroy
