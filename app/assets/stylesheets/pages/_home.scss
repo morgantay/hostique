@@ -1,5 +1,7 @@
 // Specific CSS for your home-page
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;0,600;1,100;1,200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@800&family=Montserrat+Alternates:wght@200;300&family=Syncopate:wght@700&display=swap');
+
 
 .hostel-city {
   padding: 10px;
@@ -16,21 +18,22 @@
     opacity: 0.7;
   }
 
-  .hostel-name:hover {
-    transition: all .5s ease;
-    color: #ED734B;
-  }
 }
 
 .hostel-name{
-  text-decoration:none;
-  color:rgb(23, 22, 22);
-  font-size:20px;
-//   font-weight:bold;
+    text-decoration:none;
+    color:white;
+    font-size:20px;
+    //   font-weight:bold;
+}
+.hostel-name:hover {
+  transition: all .5s ease;
+  color: #FF6600 ;
 }
 
 .info-container{
-    padding:10px 20px;
+    padding:10px 0px;
+    color:white;
 }
 
 .hostels-container{
@@ -41,15 +44,16 @@
   gap: 10px;
   overflow-x: hidden;
   margin: 0 auto;
+  // display:none;
 }
 
 .hostel-container{
   width: 80%;
   height: 250px;
-  margin: 30px;
-  margin-bottom: 50px;
+  margin:0px auto;
+  margin-top:40px;
   box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
-  background: #eee1cf;
+  background: none;
 //   font-family: 'Inconsolata', monospace;
 //   font-size: large;
 }
@@ -58,6 +62,13 @@
   background-color: grey;
   height: 60%;
   width: 100%;
+  opacity:.6;
+
+}
+.image-container:hover{
+  box-shadow: 0px 10px 15px -3px #ff6600 ;
+  opacity:1;
+
 }
 
 .home-photo{
@@ -68,12 +79,17 @@
 
 /* CITIES */
 
+
 .cities {
+  // position:relative;
+  // margin:200px 0;
   height: 250px;
   display: flex;
   flex-direction: row;
   overflow-x: scroll;
   overflow-y: hidden;
+  border-top:6px solid #FF6600 ;
+  border-bottom:6px solid #FF6600 ;
 
   img {
     width: 360px;
@@ -94,7 +110,7 @@
 
 .city::before,
 .city::after {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: #ff660061;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -106,6 +122,14 @@
   opacity: 0;
   transform: scaleY(2);
 }
+
+// .where-to-container{
+//   position:absolute;
+//   color:#FF6600;
+//   right: 33%;
+//   top: 23%;
+//   font-family: 'Syncopate', sans-serif;
+// }
 
 .text {
   position: absolute;
@@ -123,6 +147,7 @@
   a {
     text-decoration: none;
     color: white;
+    font-weight:bold;
   }
 }
 

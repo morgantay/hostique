@@ -3,7 +3,7 @@
     <%= link_to "HOSTIQUE", root_path, class: "title", style:"padding-right:0px" %>
     <div class="title-period-square"></div>
   </div>
-  <%= form_with url: root_path, method: :get, class: "d-flex" do  %>
+  <%= form_with url: root_path, method: :get, class: "d-flex searchbar" do  %>
           <%= text_field_tag :query,
             params[:query],
             class: "form-control, search-input",

@@ -110,4 +110,10 @@ hostels_add_rooms.each do |hostel|
     room.hostel = hostel
     room.save
   end
+  amenities = Amenity.all.to_a
+  amenities.each do |amenity|
+    tag = AmenityTag.new(amenity:amenity)
+    tag.hostel = hostel
+    tag.save
+  end
 end

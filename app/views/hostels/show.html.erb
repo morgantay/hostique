@@ -22,7 +22,7 @@
     <div class="name-address-container">
       <h2><%= @hostel.name %></h2>
       <p style="color:white"><%= @hostel.description %></p>
-      
+
     </div>
   </div>
   <a href="#rooms" style="color:black">
@@ -81,8 +81,8 @@
                     <%= simple_form_for(room) do |f| %>
                       <%= f.input :number_of_beds, as: :integer %>
                       <%= f.input :price_per_night, as: :integer %>
-                      <%= f.input :name %>
-                      <%= f.input :description, as: :text %>
+                      <%= f.input :name, as: :string %>
+                      <%= f.input :description, as: :string %>
                       <%= f.submit "Update" %>
                     <% end %>
                   </div>
@@ -149,6 +149,7 @@
 
 <style>
 
+
 .add-room-btn{
   color:white;
   font-size:15px;
@@ -184,11 +185,12 @@
   background:rgba(230, 207, 173, .4);
   width:54%;
   /* height:187px; */
-  min-height: 100px;
+  min-height: 200px;
 overflow: hidden;
   top: 90%;
   right: 0%;
 }
+
 
 .book-container{
   display:flex;
@@ -198,8 +200,8 @@ overflow: hidden;
   height:100px;
   top: 77%;
   right: 18%;
-  background:rgb(237, 115, 75);
-
+  /* /* background:rgb(237, 115, 75); */
+  background:rgb(255 102 0);
 }
 
 .book-container:hover{
@@ -211,7 +213,7 @@ overflow: hidden;
 
 .name-address-container h2{
   color:white;
-      letter-spacing: 2px;
+  letter-spacing: 2px;
     font-weight: bold;
 }
 
@@ -219,8 +221,9 @@ overflow: hidden;
 .rooms-map-container{
   width:100vw;
   height:100vh;
-  background:black;
-  border:3px solid rgb(237, 115, 75);
+  margin-top:80px;
+  background:rgb(44, 37, 32);
+  border:4px solid rgb(255 102 0);
 }
 
 .add-room-btn{
@@ -256,6 +259,7 @@ overflow: hidden;
 
 
 .hotel-rooms-container{
+  margin-top:80px;
   background:rgb(44, 37, 32);
   width:50%;
   height:100%;
@@ -264,7 +268,7 @@ overflow: hidden;
   overflow-y:auto;
   left:50%;
   scroll-padding: 20px;
-  border-left:4px solid rgb(237, 115, 75);
+  border-left:3px solid rgb(255 102 0);
 
 }
 
@@ -278,11 +282,12 @@ overflow: hidden;
   margin:40px auto;
   margin-top:0;
   border: 1px solid rgb(237, 115, 75);
-  box-shadow: 0px 10px 15px -3px rgba(237, 115, 75,.5);;
+  box-shadow: 0px 10px 15px -3px rgba(237, 115, 75,.5);
+  transition: all 1s ease-in;
 }
 
 .room-container:hover{
-  background:rgb(237, 115, 75);
+  background:rgb(255 102 0);
 }
 
 .room-image-container{
@@ -333,7 +338,7 @@ overflow: hidden;
 
 .room{
   padding:80px;
-  background:rgb(246 233 212);
+  background:#ECE9E2;
   height:100vh;
   width:100vw;
   position:relative;
@@ -364,9 +369,9 @@ overflow: hidden;
   position: absolute;
   width:25%;
   height:380px;
-  background:rgb(237, 115, 75);
+  background:#FF6600 ;
   color:white;
-  top: 50%;
+  top: 40%;
   left: 67%;
   box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
 
@@ -413,22 +418,36 @@ overflow: hidden;
 
 .amenities-container{
   position:absolute;
-  border:4px solid rgb(237, 115, 75);
-  width:38%;
-  height:250px;
-  top: 113%;
+  /* border:4px solid rgb(237, 115, 75); */
+  background:#f5deb321;
+  width:20%;
+  height:475px;
+  top: 25%;
   padding: 30px;
-  display: flex;
-  flex-flow: column wrap;
-  max-height: 100%;
+  min-height: 0px;
+  overflow: hidden;
+  color:white;
+  transition: all .8s ease;
+  overflow-y:auto;
+
+
 }
 
+.amenities-container:hover {
+    background:wheat;
+}
+
+.amenities-container:hover p{
+    color:black;
+}
 
 
 .amenities-container p, .amenity-text{
   /* color: rgb(237, 115, 75); */
   color:white;
   font-size:18px;
+  font-weight:bold;
+  letter-spacing:1px;
 }
 
 
@@ -446,7 +465,6 @@ overflow: hidden;
 
 .edit-container:hover .edit-form{
   height: 300px;
-
   overflow-y:auto;
   display: block;
 }

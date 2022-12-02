@@ -10,11 +10,13 @@
         <%= link_to "#{hostel.name}", hostel_path(hostel), class:"hostel-name" %> <br>
         <%= hostel.city %>
       </div>
-      
+
     </li>
     </div>
   <% end %>
 </div>
+
+<%# <h1 class="where-to-container">Where To Next...</h1> %>
 <div class="cities">
   <div class="city">
     <img src="https://i.natgeofe.com/n/6fe32bbb-d989-4ff2-942c-a81ba0734680/bc0039_190107_04085-edit-edit_3x2.jpg" alt="cape town">
@@ -41,3 +43,56 @@
     </div>
   </div>
 </div>
+<footer>
+  <div>
+    <p>ABOUT</p>
+    <p>CAREERS</p>
+
+  </div>
+  <div>
+    <p>PRIVACY</p>
+    <p>POLICY</p>
+
+
+  </div>
+  <div>
+    <p>SUPPORT</p>
+    <p>TERMS OF USE</p>
+  </div>
+
+</footer>
+
+
+<style>
+footer{
+  display:flex;
+  justify-content:center;
+  border-top:1px solid #FF6600;
+  width:80%;
+  position: fixed;
+   bottom: 0;
+   right:10%;
+
+
+}
+
+footer p {
+  color:#FF6600;
+  margin-bottom:2px;
+}
+footer div{
+  margin:0 20px;
+  padding:10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+</style>
+
+
+<%# <script>
+  let searchBtn = document.querySelect(".search-icon-button")
+
+  searchBtn.addEventListener
+
+</script> %>

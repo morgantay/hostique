@@ -19,7 +19,7 @@ class Hostel < ApplicationRecord
 
   def attach_default
     unless self.photos.attached?
-     file = URI.open("https://images.unsplash.com/photo-1520277739336-7bf67edfa768?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8aG9zdGVsfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60")
+     file = URI.open("https://images.unsplash.com/photo-1533423996375-f914ab160932?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=900&q=80")
      self.photos.attach(io: file, filename: "hostel.jpg", content_type: "hostel/jpg")
      self.save
     end
