@@ -3,11 +3,12 @@ class PagesController < ApplicationController
 
   def home
     if params[:query].present?
-      @hostels = Hostel.where(city: params[:query])
+      @hostels = Hostel.where("city ILIKE ?", "%#{params[:query]}%")
     else
-      @hostels = Hostel.all
+      @hostels = Hostel.all.sample(5)
     end
     @hostel = Hostel.new
+    @amenities = Amenity.all
   end
 
   def profile
