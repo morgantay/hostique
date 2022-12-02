@@ -3,6 +3,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Dosis:wght@800&family=Montserrat+Alternates:wght@200;300&family=Syncopate:wght@700&display=swap');
 
 
+.container {
+  width: 100%;
+}
+
 .hostel-city {
   padding: 10px;
 
@@ -155,4 +159,21 @@
 .city:hover::after {
   transform: scale(1);
   opacity: 1;
+}
+
+/* FILTER */
+
+.amenities-filter {
+  overflow: hidden;
+  background-color: #ED734B;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  button {
+    border: none;
+    border-radius: none;
+    color: white;
+    background-color: #2C2520;
+  }
 }

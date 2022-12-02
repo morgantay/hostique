@@ -2,7 +2,15 @@ class HostelsController < ApplicationController
   before_action :set_hostel, only: %i[show edit update destroy]
 
   def index
-    @hostels = policy_scope(Hostel).all
+    if params[:query].present?
+      @hostels = policy_scope(Hostel).all.joins(:amenity).where("amenity.name ILIKE hostel.amenity_tag.amenity.name")
+    else
+      @hostels = policy_scope(Hostel).all
+    end
+    respond_to do |format|
+      format.html
+      format.text { render partial: "hostels/hostels", locals: {hostels: @hostels}, formats: [:html] }
+    end
   end
 
   def show
