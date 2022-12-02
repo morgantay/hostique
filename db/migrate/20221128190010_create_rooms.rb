@@ -5,7 +5,6 @@ class CreateRooms < ActiveRecord::Migration[7.0]
       t.integer :price_per_night
       t.string :name
       t.string :description
-      t.string :image_url
       t.references :hostel, null: false, foreign_key: true
 
       t.timestamps

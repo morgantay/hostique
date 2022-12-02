@@ -209,7 +209,7 @@ Hostel.create!(name: 'The Pacific House',
 
 Hostel.create!(name: 'CarricHouse',
                city: 'Melbourne',
-               addresss: '38 Howard st, Melbourne, Australia',
+               address: '38 Howard st, Melbourne, Australia',
                description: 'CarricHouse provide a home feeling, luxury- hostel style accommodation to travellers and international students .',
                user: user)
 
@@ -248,22 +248,22 @@ Hostel.create!(name: 'A Sleepy Fox',
                address: 'B-13 2ND FLOOR, KAILASH COLONY, New Delhi, India',
                description: 'The hostel has some units that feature a patio and garden view, and all rooms are equipped with a private bathroom and a desk. At A sleepy Fox, every room includes a seating area.',
                user: user)
-               
 
-hostels = Hostel.all.where(latitude: nil)
+
+hostels = Hostel.where(latitude: nil)
 hostels.each do |hostel|
   hostel.destroy
 end
-hostels_add_rooms = Hostel.all.to_a
+hostels_add_rooms = Hostel.all
 hostels_add_rooms.each do |hostel|
   5.times do
     room = Room.new(name: Faker::Fantasy::Tolkien.location, number_of_beds: rand(1..10), price_per_night: rand(20..40), description:Faker::Fantasy::Tolkien.poem, quantity: 1 )
     room.hostel = hostel
     room.save
   end
-  amenities = Amenity.all.to_a
+  amenities = Amenity.all
   amenities.each do |amenity|
-    tag = AmenityTag.new(amenity:amenity)
+    tag = AmenityTag.new(amenity: amenity)
     tag.hostel = hostel
     tag.save
   end

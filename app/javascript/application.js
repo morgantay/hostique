@@ -10,5 +10,3 @@ document.addEventListener("turbolinks:load", function() {
 });
 
 // this needs to be here for navbar dropdown to work
-import { navbar } from "./controllers/my_navbar"
-navbar()
