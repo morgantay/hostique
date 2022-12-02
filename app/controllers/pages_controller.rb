@@ -5,7 +5,7 @@ class PagesController < ApplicationController
     if params[:query].present?
       @hostels = Hostel.where(city: params[:query])
     else
-      @hostels = Hostel.all
+      @hostels = Hostel.all.sample(4)
     end
     @hostel = Hostel.new
   end
