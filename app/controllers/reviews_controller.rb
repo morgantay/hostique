@@ -9,7 +9,7 @@ class ReviewsController < ApplicationController
     if @review.save
       redirect_to hostel_path(@hostel)
     else
-      render "hostels/show", status: :unprocessable_entity
+      render "/portfolio", status: :unprocessable_entity
     end
   end
 

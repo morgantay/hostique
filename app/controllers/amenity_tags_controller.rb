@@ -2,10 +2,11 @@ class AmenityTagsController < ApplicationController
   before_action :set_hostel, only: %i[create]
 
   def create
-    @amenity_tag = AmenityTag.new(amenitytag_params)
-    @amenity_tag.hostel = @hostel
-    authorize @amenity_tag.hostel
-    @amenity_tag.save
+    @amenities = Amenity.where(id: params.dig(:amenity_tag, :amenity))
+    authorize @hostel
+    @amenities.each do |amenity|
+      AmenityTag.create!(hostel: @hostel, amenity: amenity)
+    end
     redirect_to hostel_path(@hostel)
   end
 

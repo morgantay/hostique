@@ -21,7 +21,7 @@ class ReservationsController < ApplicationController
     if @reservation.save
       redirect_to profile_path, notice: "Your reservation at #{@reservation.room.hostel.name} has been successfully updated."
     else
-      render '/profile', status: :unprocessable_entity
+      render '/profile', status: :unprocessable_entity, notice: "This room is fully booked during your new dates"
     end
   end
 

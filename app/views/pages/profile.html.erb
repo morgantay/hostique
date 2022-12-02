@@ -11,8 +11,13 @@
       <%= simple_form_for(@hostel) do |f| %>
         <%= f.input :name, class: 'input' %>
         <%= f.input :city, class: 'input' %>
-        <%= f.input :address, input_html: {data: {address_autocomplete_target: "address"}},
-            wrapper_html: {data: {controller: "address-autocomplete", address_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"]}} %>
+        <%# <%= f.input :address, class: 'input' %>
+
+        <%= f.input :address,
+            input_html: {data: {address_autocomplete_target: "address"}, class:"d-none"},
+            wrapper_html: {data: {controller: "address-autocomplete",
+            address_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"]}}
+        %>
         <%= f.input :description, as: :text, class: 'input' %>
         <%= f.input :photos, as: :file, input_html: { multiple: true } %>
         <%= f.submit 'add listing', class: 'submit-btn' %>
@@ -28,7 +33,7 @@
     <ul>
       <% @hostels.each do |hostel| %>
         <li>
-          <div class='listed-hostels-info'>
+          <div class='hostel-info'>
             <%= link_to "#{hostel.name}", hostel_path(hostel), class: 'hostel-name' %>
             <p><%= hostel.city %></p>
           </div>
@@ -58,7 +63,7 @@
         <% if reservation.end_date > Date.today %>
           <% @hostel = reservation.room.hostel %>
           <li>
-            <div class='booking-info'>
+            <div class='hostel-info'>
               <%= link_to "#{@hostel.name}", hostel_path(@hostel), class: 'hostel-name' %>
               <p><%= @hostel.city %></p>
             </div>
@@ -91,7 +96,7 @@
         <% if reservation.end_date < Date.today %>
           <% @hostel = reservation.room.hostel %>
           <li>
-            <div class='listed-hostels-info'>
+            <div class='hostel-info'>
               <%= link_to "#{@hostel.name}", hostel_path(@hostel), class: 'hostel-name' %>
               <p><%= @hostel.city %></p>
             </div>
@@ -116,7 +121,6 @@
     </ul>
   </div>
 </div>
-
 <script>
   const addBtn = document.getElementById('add-list-btn')
   const closeBtn = document.getElementById('exit-form')
@@ -129,234 +133,3 @@
     document.getElementById('form').style.display = "none";
   })
 </script>
-
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;0,600;1,200&display=swap');
-
-  body {
-    font-family: 'Poppins', sans-serif;
-  }
-  .edit-res-form, .edit-list-form, .add-review-form {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    overflow: hidden;
-    height: 0;
-    width: 252px;
-    opacity: 0;
-    background: linear-gradient(to left, #7CD2DE, #ED734B);
-    padding: 10px;
-    transition: all .5s ease;
-  }
-
-  #edit-btn:hover .edit-list-form,
-  #edit-btn:hover .edit-res-form {
-    opacity: 1;
-    z-index: 2;
-  }
-
-  #edit-btn:hover .edit-list-form { height: 420px }
-
-  #edit-btn:hover .edit-res-form {height: 350px }
-
-  #edit-btn {
-    cursor: pointer;
-    width: 50%;
-    text-align: center;
-    align-self: center;
-    background-color: #ED734B;
-    padding: 5px;
-  }
-
-  #review-btn:hover .add-review-form {
-    opacity: 1;
-    z-index: 2;
-    height: 280px;
-  }
-
-  #review-btn {
-    cursor: pointer;
-  }
-
-  .main {
-    background-color: #E6CFAD;
-    width: 100%;
-    height: auto;
-    overflow: scroll;
-  }
-
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-
-  li {
-    position: relative;
-  }
-
-  a {
-    text-decoration: none;
-    color: #1B1B1F;
-  }
-
-  .listings {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-  }
-  #add-list-btn {
-    width: 150px;
-    cursor: pointer;
-  }
-
-  /* BUTTONS */
-
-  .buttons {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    position: relative;
-  }
-
-  .button {
-    background-color: #ED734B;
-    padding: 5px;
-    width: 50%;
-    text-align: center;
-  }
-
-  .button:hover {
-    background: linear-gradient(to right, #7CD2DE, #ED734B);
-    color: #1B1B1F;
-  }
-
-  .hostel-name {
-    font-size: 25px;
-    color: #FFFFFF;
-  }
-
-  .hostel-name:hover {
-    color: #7CD2DE;
-    transition: all .5s ease;
-  }
-
-  .user-info h1 {
-    color: #1B1B1F;
-    margin: 20px;
-  }
-
-  /* ADD LISTING */
-
-  .form {
-    padding: 20px;
-    width: 25%;
-    background-color: #ED734B;
-    position: absolute;
-    top: 20%;
-    left: 40%;
-    display: none;
-    z-index: 2;
-    transition: all 1s ease;
-  }
-
-  .submit-btn {
-    background-color: #2C2520;
-    padding: 5px;
-    width: 100%;
-    color: #FFFFFF;
-    border: none;
-  }
-
-  .submit-btn:hover {
-    opacity: 0.5;
-    transition: all .5s ease;
-  }
-
-  #exit-form {
-    position: absolute;
-    top: 5px;
-    right: 10px;
-    cursor: pointer;
-  }
-
-  #exit-form p {
-    font-size: 20px;
-    font-weight: bolder;
-  }
-
-  #exit-form:hover {
-    opacity: 0.5;
-    transition: all .5s ease;
-  }
-
-  /**/
-  h3 {
-    color: #1B1B1F;
-    margin: 30px;
-  }
-
-  .user-listings ul {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    margin: 20px;
-  }
-
-  .user-listings li {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    background-color: #2C2520;
-    margin: 10px;
-    color-scheme: black;
-    width: 252px;
-    height: 250px;
-    justify-content: space-between;
-  }
-
-  .listed-hostels-info {
-    display: flex;
-    flex-direction: column;
-    margin: 10px;
-    color: #FFFFFF;
-  }
-
-  .reservations ul {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    margin: 20px;
-  }
-
-  .reservations li {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    background-color: #2C2520;
-    width: 252px;
-    height: 300px;
-    margin: 10px;
-  }
-
-  .booking-info {
-    display: flex;
-    flex-direction: column;
-    margin: 10px;
-    color: #FFFFFF;
-  }
-
-  .booking-info p { margin-bottom: 0 }
-
-  .res-dates {
-    display: flex;
-    flex-direction: column;
-    margin: 10px;
-    color: #FFFFFF;
-  }
-
-  .res-dates p {
-    margin: 0;
-  }
-
-  #review-btn {
-    width: 100%;
-  }
-</style>
