@@ -27,6 +27,9 @@ gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
+gem "pry-byebug"
+gem "byebug", platforms: %i[mri mingw x64_mingw]
+
 
 
 # Use Redis adapter to run Action Cable in production

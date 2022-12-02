@@ -7,8 +7,11 @@ class PagesController < ApplicationController
     else
       @hostels = Hostel.all.sample(5)
     end
-    @hostel = Hostel.new
-    @amenities = Amenity.all
+    @amenities = Amenity.all.map { |am| am.name }
+    respond_to do |format|
+      format.html
+      format.text { render partial: { hostels: @hostels.joins(:amenity).where("amenity ILIKE hostel.amenity_tag.amenity.name") } }
+    end
   end
 
   def profile
