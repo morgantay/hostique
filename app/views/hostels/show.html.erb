@@ -22,6 +22,7 @@
     <div class="name-address-container">
       <h2><%= @hostel.name %></h2>
       <p style="color:white"><%= @hostel.description %></p>
+      
     </div>
   </div>
   <a href="#rooms" style="color:black">
@@ -32,7 +33,7 @@
 </div>
 
 
-<div class="rooms-map-container" id="rooms">
+<div class="rooms-map-container " id="rooms">
   <div id='hostelmap' style="width: 50%; height: 100%;"
     data-controller="map"
     data-map-marker-value="<%= @marker.to_json %>"
@@ -56,9 +57,12 @@
       <% @hostel.rooms.each do |room| %>
           <div class="room-container">
             <div class="room-image-container">
+                 <% if @hostel.photos.attached? %>
+                    <%= cl_image_tag @hostel.photos.first.key, class:"home-photo",crop: :fill %>
+                <% end %>
             </div>
             <div class="room-info-container">
-              <a href="#<%=room.id%>" style="color:white"> <h4><%= room.name %></h4></a>
+              <a href="#<%=room.id%>" style="color:white"> <h2><%= room.name %></h2></a>
               <div class="room-details-container">
                 <p style="color:white" ><%= room.number_of_beds %> beds</p> <br>
                 <p style="color:white"><%= room.price_per_night %> USD</p>
@@ -192,7 +196,7 @@ overflow: hidden;
   position:absolute;
   width:25%;
   height:100px;
-  top: 80%;
+  top: 77%;
   right: 18%;
   background:rgb(237, 115, 75);
 
@@ -203,19 +207,7 @@ overflow: hidden;
   background:none;
 
 }
-.notice{
-    position: absolute;
-    padding: 20px;
-    margin-top:20px;
-    width: 30%;
-    background-color:rgba(237, 115, 75, .5) !important;
-    z-index:1;
-    font-size:20px;
-}
 
-.notice:empty{
-  display: none;
-}
 
 .name-address-container h2{
   color:white;
@@ -228,6 +220,7 @@ overflow: hidden;
   width:100vw;
   height:100vh;
   background:black;
+  border:3px solid rgb(237, 115, 75);
 }
 
 .add-room-btn{
@@ -271,6 +264,7 @@ overflow: hidden;
   overflow-y:auto;
   left:50%;
   scroll-padding: 20px;
+  border-left:4px solid rgb(237, 115, 75);
 
 }
 
@@ -279,13 +273,12 @@ overflow: hidden;
 .room-container{
   padding:20px;
   display: flex;
-  justify-content:space-around;
+  justify-content:flex-start;
   width:90%;
-  /* border:1px solid black;   */
   margin:40px auto;
-  /* background:linear-gradient(121deg, rgba(44,37,32,1) 0%, rgba(230,207,173,1) 71%); */
+  margin-top:0;
   border: 1px solid rgb(237, 115, 75);
-  box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+  box-shadow: 0px 10px 15px -3px rgba(237, 115, 75,.5);;
 }
 
 .room-container:hover{
@@ -304,11 +297,17 @@ overflow: hidden;
   justify-content: space-between;
 }
 
+.room-details-container p{
+    font-size:18px;
+
+}
+
 
 
 .room-info-container{
-  margin-left:20px;
+  margin-left:33px;
   display: flex;
+
   flex-direction: column;
   justify-content: center;
 }
@@ -364,7 +363,7 @@ overflow: hidden;
   padding:20px;
   position: absolute;
   width:25%;
-  height:300px;
+  height:380px;
   background:rgb(237, 115, 75);
   color:white;
   top: 50%;
