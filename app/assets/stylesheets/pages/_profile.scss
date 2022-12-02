@@ -3,6 +3,7 @@
 
 body {
   font-family: 'Poppins', sans-serif;
+  background: #2C2520;
 }
 
 .user-info{
@@ -12,7 +13,7 @@ body {
 }
 
 .main {
-  padding-top:43px;  
+  padding-top:43px;
   background-color: #E6CFAD;
   width: 100%;
   height: 100vh;
@@ -84,14 +85,14 @@ body {
 
 /* ADD LIST FORM */
 
-.form { 
- 
+.form {
+
   padding: 20px;
   width: 25%;
   background-color: #ED734B;
   position: absolute;
-  top: 60%;
-  left: 40%;
+  top: 25%;
+  left: 69%;
   display: none;
   z-index: 2;
   transition: all 1s ease;
@@ -100,6 +101,10 @@ body {
 #add-list-btn {
   width: 150px;
   cursor: pointer;
+}
+
+.active{
+  color:white;
 }
 
 .submit-btn {
