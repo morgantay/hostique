@@ -20,14 +20,19 @@
         <% end %>
     </div>
     <div class="name-address-container">
-      <h1><%= @hostel.name %></h1>
-      <h3><%= @hostel.address %></h3>
+      <h2><%= @hostel.name %></h2>
+      <p style="color:white"><%= @hostel.description %></p>
     </div>
   </div>
+  <a href="#rooms" style="color:black">
+    <div class="book-container">
+      <h1 style="margin:0 auto; color:white; font-weight:bolder">BOOK NOW</h1>
+    </div>
+  </a>
 </div>
 
 
-<div class="rooms-map-container">
+<div class="rooms-map-container" id="rooms">
   <div id='hostelmap' style="width: 50%; height: 100%;"
     data-controller="map"
     data-map-marker-value="<%= @marker.to_json %>"
@@ -53,15 +58,18 @@
             <div class="room-image-container">
             </div>
             <div class="room-info-container">
-              <a href="#<%=room.id%>"> <h4><%= room.name %></h4></a>
+              <a href="#<%=room.id%>" style="color:white"> <h4><%= room.name %></h4></a>
               <div class="room-details-container">
-                <p><%= room.number_of_beds %> beds</p> <br>
-                <p><%= room.price_per_night %> USD</p>
+                <p style="color:white" ><%= room.number_of_beds %> beds</p> <br>
+                <p style="color:white"><%= room.price_per_night %> USD</p>
               </div>
             </div>
 
             <div>
-              <%= link_to 'remove', room_path(room), data: {turbo_method: :delete} if policy(room.hostel).destroy? %>
+              <%= link_to room_path(room), data: {turbo_method: :delete} if policy(room.hostel).destroy?  do %>
+                <i class="fa-light fa-trash"></i>
+              <% end %>
+
               <% if policy(room.hostel).edit? %>
                 <div class="edit-container">
                   edit
@@ -169,16 +177,51 @@
 .name-address-container{
   padding:30px;
   position:absolute;
-  background:#E6CFAD;
-  width:44%;
-  height:200px;
+  background:rgba(230, 207, 173, .4);
+  width:54%;
+  /* height:187px; */
+  min-height: 100px;
+overflow: hidden;
   top: 90%;
-  right: 5%;
+  right: 0%;
 }
 
-/* .name-address-container h1, h3{
+.book-container{
+  display:flex;
+  padding:30px;
+  position:absolute;
+  width:25%;
+  height:100px;
+  top: 80%;
+  right: 18%;
+  background:rgb(237, 115, 75);
+
+}
+
+.book-container:hover{
+  border:4px solid rgb(237, 115, 75);
+  background:none;
+
+}
+.notice{
+    position: absolute;
+    padding: 20px;
+    margin-top:20px;
+    width: 30%;
+    background-color:rgba(237, 115, 75, .5) !important;
+    z-index:1;
+    font-size:20px;
+}
+
+.notice:empty{
+  display: none;
+}
+
+.name-address-container h2{
   color:white;
-} */
+      letter-spacing: 2px;
+    font-weight: bold;
+}
 
 
 .rooms-map-container{
@@ -240,7 +283,8 @@
   width:90%;
   /* border:1px solid black;   */
   margin:40px auto;
-  background:linear-gradient(121deg, rgba(44,37,32,1) 0%, rgba(230,207,173,1) 71%);
+  /* background:linear-gradient(121deg, rgba(44,37,32,1) 0%, rgba(230,207,173,1) 71%); */
+  border: 1px solid rgb(237, 115, 75);
   box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
 }
 
@@ -283,6 +327,7 @@
   text-decoration:none;
   font-size:25px;
   color:rgb(237, 115, 75);
+  font-weight: bolder;
 
 }
 
@@ -369,7 +414,7 @@
 
 .amenities-container{
   position:absolute;
-  border:2px solid rgb(237, 115, 75);
+  border:4px solid rgb(237, 115, 75);
   width:38%;
   height:250px;
   top: 113%;
@@ -379,8 +424,12 @@
   max-height: 100%;
 }
 
+
+
 .amenities-container p, .amenity-text{
-  color: rgb(237, 115, 75);
+  /* color: rgb(237, 115, 75); */
+  color:white;
+  font-size:18px;
 }
 
 
