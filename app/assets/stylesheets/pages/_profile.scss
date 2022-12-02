@@ -1,13 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;0,600;1,200&display=swap');
 
+
 body {
   font-family: 'Poppins', sans-serif;
 }
 
+.user-info{
+    display: flex;
+    justify-content: flex-end;
+    margin-left:60px
+}
+
 .main {
+  padding-top:43px;  
   background-color: #E6CFAD;
   width: 100%;
-  height: auto;
+  height: 100vh;
   overflow: scroll;
 
   h1 {
@@ -76,12 +84,13 @@ body {
 
 /* ADD LIST FORM */
 
-.form {
+.form { 
+ 
   padding: 20px;
   width: 25%;
   background-color: #ED734B;
   position: absolute;
-  top: 20%;
+  top: 60%;
   left: 40%;
   display: none;
   z-index: 2;

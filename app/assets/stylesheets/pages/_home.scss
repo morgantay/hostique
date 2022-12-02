@@ -6,7 +6,7 @@
 
   .hostel-name{
     text-decoration: none;
-    color: rgb(23, 22, 22);
+    color: white;
     font-size: 20px;
     font-family: 'Poppins', sans-serif;
   }
@@ -17,35 +17,41 @@
   }
 
   .hostel-name:hover {
-    opacity: 0.5;
     transition: all .5s ease;
+    color: #ED734B;
   }
 }
 
 .hostel-name{
-  text-decoration: none;
-  color: rgb(23, 22, 22);
-  font-size: 20px;
-  font-family: 'Poppins', sans-serif;
+  text-decoration:none;
+  color:rgb(23, 22, 22);
+  font-size:20px;
+//   font-weight:bold;
 }
+
+.info-container{
+    padding:10px 20px;
+}
+
 .hostels-container{
-  background:#E6CFAD;
+  background-color: #2C2520;
   height: auto;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
   overflow-x: hidden;
+  margin: 0 auto;
 }
 
 .hostel-container{
-  width: 20%;
-  height: 300px;
+  width: 80%;
+  height: 250px;
   margin: 30px;
   margin-bottom: 50px;
   box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
   background: #eee1cf;
-  font-family: 'Poppins', sans-serif;
-  font-size: large;
-  border: 1px solid black;
+//   font-family: 'Inconsolata', monospace;
+//   font-size: large;
 }
 
 .image-container{
@@ -63,7 +69,7 @@
 /* CITIES */
 
 .cities {
-  height: 210px;
+  height: 250px;
   display: flex;
   flex-direction: row;
   overflow-x: scroll;
@@ -79,6 +85,7 @@
 .city {
   position: relative;
   text-align: center;
+  border-top: #ED734B;
 
   &:hover .text {
     opacity: 1;
