@@ -1,6 +1,6 @@
 
 <div class="main-container" >
-  <div class="banner"  style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.3)), url('<%= cl_image_path @hostel.photos.first.key, crop: :fill %>')">
+  <div class="banner"  style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.3)), url('<%= cl_image_path @hostel.photos.last.key, crop: :fill %>');  background-size: cover;">
 
     <div class="amenities-container">
       <% if policy(@hostel).create? %>
@@ -10,7 +10,7 @@
                 <%= f.input :amenity, collection: Amenity.all, input_html: { multiple: true, id: "select-tags",
                 data: {controller: "tom_select", tom_select_options_value: {tags: true}}},
                 include_hidden: false%>
-                <%= f.submit %>
+                <%= f.submit 'add', class: 'amenity-btn' %>
             <% end %>
           </div>
         </div>
@@ -47,7 +47,7 @@
               <%= f.input :number_of_beds, as: :integer %>
               <%= f.input :price_per_night, as: :integer %>
               <%= f.input :name %>
-              <%= f.input :description, as: :text %>
+              <%= f.input :description%>
               <%= f.input :photo, as: :file %>
               <%= f.submit %>
             <% end %>
@@ -70,13 +70,16 @@
             </div>
 
             <div>
-              <%= link_to room_path(room), data: {turbo_method: :delete} if policy(room.hostel).destroy?  do %>
-                <i class="fa-light fa-trash"></i>
+            <% if policy(room.hostel).destroy? %>
+              <%= link_to room_path(room),class:"trash-icon", data: {turbo_method: :delete}  do %>
+                  <i class="fa-regular fa-trash-can"></i>
               <% end %>
+
+            <% end %>
 
               <% if policy(room.hostel).edit? %>
                 <div class="edit-container">
-                  edit
+                  <i class="fa-solid fa-pen"></i>
                   <div class="edit-form">
                     <%= simple_form_for(room) do |f| %>
                       <%= f.input :number_of_beds, as: :integer %>
@@ -137,10 +140,10 @@
       <div class="booking-container">
         <h2>Book your stay now!</h2>
         <%= simple_form_for([room, @reservation]) do |f| %>
-          <%= f.input :start_date, as: :date, order: %i[day month year], html5: true, id: 'start-date'%>
-          <%= f.input :end_date, as: :date, order: %i[day month year], html5: true, id: 'end-date' %>
+          <%= f.input :start_date, as: :date, order: %i[day month year], html5: true, id: 'start-date', class:"input"%>
+          <%= f.input :end_date, as: :date, order: %i[day month year], html5: true, id: 'end-date', class:"input" %>
           <%= f.input :amount_of_beds, collection: 1..room.number_of_beds %>
-          <%= f.submit %>
+          <%= f.submit "reserve", class: 'reserve-btn' %>
         <% end %>
       </div>
   </div>
@@ -149,6 +152,10 @@
 
 <style>
 
+.edit-container{
+  color:white;
+  margin-left:220px;
+}
 
 .add-room-btn{
   color:white;
@@ -255,6 +262,12 @@ overflow: hidden;
   left:3%;
 }
 
+.trash-icon{
+      font-size: 28px;
+    color: white;
+    margin-left:220px;
+}
+
 
 
 
@@ -275,7 +288,7 @@ overflow: hidden;
 
 
 .room-container{
-  padding:20px;
+  /* padding:20px; */
   display: flex;
   justify-content:flex-start;
   width:90%;
@@ -380,6 +393,10 @@ overflow: hidden;
 
 .price-container{
   padding:20px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
   position: absolute;
   width:25%;
   height:100px;
@@ -465,11 +482,35 @@ overflow: hidden;
 
 .edit-container:hover .edit-form{
   height: 300px;
+  width:200px;
   overflow-y:auto;
   display: block;
 }
 
 
+.reserve-btn {
+  padding: 10px 15px;
+  background: #ECE9E2;
+  border: none;
+  font-family: "Nunito", "Helvetica", "sans-serif";
+  width: 100%;
+}
 
+.reserve-btn:hover {
+  background: none;
+  border: 2px solid #ECE9E2;
+}
+
+.amenity-btn {
+  border: none;
+  font-family: "Nunito", "Helvetica", "sans-serif";
+  width: 100%;
+  padding: 10px 15px;
+  background: #FF6600;
+}
+
+.form-select{
+  background:none !important;
+}
 
 </style>
